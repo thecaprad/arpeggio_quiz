@@ -35,11 +35,11 @@ class Arpeggio(object):
         self.root = Note(random.choice(ALL_PITCHES.keys())) # Randomly generated Note
         self.notes = self.get_notes()
 
-    def set_root(self):
-        pass
-
     def get_notes(self):
         result = [self.root]
         for interval in QUALITIES[self.quality]:
-            result.append(Note(self.root.pitch_value + INTERVALS[interval]))
+            next_pitch_value = self.root.pitch_value + INTERVALS[interval]
+            if next_pitch_value > 12: # Max pitch value is always 12.
+                next_pitch_value = next_pitch_value % 12
+            result.append(Note(next_pitch_value))
         return result

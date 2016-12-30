@@ -1,3 +1,5 @@
+import random
+
 ALL_PITCHES = {
     1: ["Gx", "A", "Bbb"],
     2: ["A#", "Bb"],
@@ -14,8 +16,9 @@ ALL_PITCHES = {
 }
 
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
-INTERVALS = {'m3': 3, 'M3': 4, 'b5': 6, 'P5': 7, '#5': 8, 'x5': 9}
-QUALITIES = {'major': ['M3', 'P5'], 'minor': ['m3', 'P5'], 'diminished': ['m3', 'b5']} # Values are list of half step intervals above a root
+INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8, "x5": 9}
+QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
+VALID_QUALITIES = QUALITIES.keys() # "major", "minor", etc.
 
 class Note(object):
     def __init__(self, pitch_value):
@@ -25,3 +28,18 @@ class Note(object):
 
     def get_string(self):
         return self.enharmonics_list[self.preferred_enharmonic]
+
+class Arpeggio(object):
+    def __init__(self, quality):
+        self.quality = quality # String found in VALID_QUALITIES
+        self.root = Note(random.choice(ALL_PITCHES.keys())) # Randomly generated Note
+        self.notes = self.get_notes()
+
+    def set_root(self):
+        pass
+
+    def get_notes(self):
+        result = [self.root]
+        for interval in QUALITIES[self.quality]:
+            result.append(Note(self.root.pitch_value + INTERVALS[interval]))
+        return result

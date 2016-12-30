@@ -18,9 +18,10 @@ INTERVALS = {'m3': 3, 'M3': 4, 'b5': 6, 'P5': 7, '#5': 8, 'x5': 9}
 QUALITIES = {'major': ['M3', 'P5'], 'minor': ['m3', 'P5'], 'diminished': ['m3', 'b5']} # Values are list of half step intervals above a root
 
 class Note(object):
-    def __init__(self, pitch_value, enharmonics_list):
+    def __init__(self, pitch_value):
         self.pitch_value = pitch_value
-        self.enharmonics_list = enharmonics_list
+        self.enharmonics_list = ALL_PITCHES[self.pitch_value]
         self.preferred_enharmonic = 0 # Int representing an index for enharmonics_list.
 
-NOTES = [Note(pitch_value, enharmonics_list) for pitch_value, enharmonics_list in ALL_PITCHES.items()]
+    def get_string(self):
+        return self.enharmonics_list[self.preferred_enharmonic]

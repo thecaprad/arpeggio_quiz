@@ -16,7 +16,7 @@ ALL_PITCHES = {
 }
 
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
-INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8, "x5": 9}
+INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
 VALID_QUALITIES = QUALITIES.keys() # "major", "minor", etc.
 

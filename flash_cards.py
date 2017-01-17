@@ -30,12 +30,15 @@ class Note(object):
         return self.enharmonics_list[self.preferred_enharmonic]
 
 class Arpeggio(object):
-    def __init__(self, quality):
+    def __init__(self, root, quality):
+        self.root = root # Note object
         self.quality = quality # String found in VALID_QUALITIES
-        self.root = Note(random.choice(ALL_PITCHES.keys())) # Randomly generated Note
-        self.notes = self.get_notes()
+        self.notes = self.get_notes() # List of note objects
 
     def get_notes(self):
+        """
+        Returns list of note objects for the corresponding arpeggio based on the root and quality.
+        """
         result = [self.root]
         for interval in QUALITIES[self.quality]:
             next_pitch_value = self.root.pitch_value + INTERVALS[interval]
@@ -43,3 +46,11 @@ class Arpeggio(object):
                 next_pitch_value = next_pitch_value % 12
             result.append(Note(next_pitch_value))
         return result
+
+def get_random_note():
+    return Note(random.choice(ALL_PITCHES.keys()))
+
+if __name__ == "__main__":
+    n = get_random_note()
+    a = Arpeggio(n, "diminished")
+    print([note.enharmonics_list for note in a.notes])

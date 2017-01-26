@@ -24,10 +24,28 @@ class Note(object):
     def __init__(self, pitch_value):
         self.pitch_value = pitch_value
         self.enharmonics_list = ALL_PITCHES[self.pitch_value]
-        self.preferred_enharmonic = 0 # Int representing an index for enharmonics_list.
+        self.preferred_enharmonic = self.get_biased_index() # Int representing an index for enharmonics_list.
 
     def get_string(self):
         return self.enharmonics_list[self.preferred_enharmonic]
+
+    def get_biased_index(self):
+        """
+        Returns an index of enharmonics_list that represents a random enharmonic that is not
+        double sharp 'x'
+        or double flat 'bb'
+        """
+        double_sharp = "x"
+        double_flat = "bb"
+        possible_indexes = range(len(self.enharmonics_list))
+        while 1:
+            biased_index = random.choice(possible_indexes)
+            biased_enharmonic = self.enharmonics_list[biased_index]
+            print(biased_index, biased_enharmonic)
+            if not biased_enharmonic.endswith(double_flat) and not biased_enharmonic.endswith(double_sharp):
+                return biased_index
+            else:
+                possible_indexes.pop(biased_index)
 
 class Arpeggio(object):
     def __init__(self, root, quality):
@@ -52,5 +70,6 @@ def get_random_note():
 
 if __name__ == "__main__":
     n = get_random_note()
+    print(n.preferred_enharmonic)
     a = Arpeggio(n, "diminished")
     print([note.enharmonics_list for note in a.notes])

@@ -38,13 +38,12 @@ class Note(object):
         double_sharp = "x"
         double_flat = "bb"
         possible_indexes = range(len(self.enharmonics_list))
-        while 1:
-            biased_index = random.choice(possible_indexes)
-            biased_enharmonic = self.enharmonics_list[biased_index]
+        clean_indexes = []
+        for index in possible_indexes:
+            biased_enharmonic = self.enharmonics_list[index]
             if not biased_enharmonic.endswith(double_flat) and not biased_enharmonic.endswith(double_sharp):
-                return biased_index
-            else:
-                possible_indexes.pop(biased_index)
+                clean_indexes.append(index)
+        return random.choice(clean_indexes)
 
 class Arpeggio(object):
     def __init__(self, root, quality):

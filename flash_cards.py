@@ -21,10 +21,13 @@ QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", 
 VALID_QUALITIES = QUALITIES.keys() # "major", "minor", etc.
 
 class Note(object):
-    def __init__(self, pitch_value):
+    def __init__(self, pitch_value, preferred_enharmonic=None):
         self.pitch_value = pitch_value
         self.enharmonics_list = ALL_PITCHES[self.pitch_value]
-        self.preferred_enharmonic = self.get_biased_index() # Int representing an index for enharmonics_list.
+        if preferred_enharmonic == None:
+            self.preferred_enharmonic = self.get_biased_index() # Int representing an index for enharmonics_list.
+        else:
+            self.preferred_enharmonic = preferred_enharmonic
 
     def get_string(self):
         return self.enharmonics_list[self.preferred_enharmonic]

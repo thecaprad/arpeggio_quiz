@@ -41,7 +41,6 @@ class Note(object):
         while 1:
             biased_index = random.choice(possible_indexes)
             biased_enharmonic = self.enharmonics_list[biased_index]
-            print(biased_index, biased_enharmonic)
             if not biased_enharmonic.endswith(double_flat) and not biased_enharmonic.endswith(double_sharp):
                 return biased_index
             else:

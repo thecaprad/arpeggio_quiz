@@ -53,6 +53,7 @@ class Arpeggio(object):
         self.root = root # Note object
         self.quality = quality # String found in VALID_QUALITIES
         self.notes = self.get_notes() # List of note objects
+        self.assign_preferred_enharmonics()
 
     def get_notes(self):
         """
@@ -65,6 +66,18 @@ class Arpeggio(object):
                 next_pitch_value = next_pitch_value % 12
             result.append(Note(next_pitch_value))
         return result
+    
+    def assign_preferred_enharmonics(self):
+        i = 0
+        for note in self.notes:
+            if note.pitch_value == self.root.pitch_value: # Enharmonic for the root will not be reassigned.
+                pass
+            else:
+                 primary_pitch = MUSICAL_ALPHABET[((self.root.pitch_value + int(QUALITIES[self.quality][i][1])) - 2)] # Fix!
+                 for enharmonic in note.enharmonics_list:
+                    if enharmonic.startswith(primary_pitch): # Find a way to do this that ends the loop when successful.
+                        note.preferred_enharmonic = note.enharmonics_list.index(enharmonic)
+                 i += 1
 
 def get_random_note():
     return Note(random.choice(ALL_PITCHES.keys()))

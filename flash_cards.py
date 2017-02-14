@@ -21,16 +21,16 @@ QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", 
 VALID_QUALITIES = QUALITIES.keys() # "major", "minor", etc.
 
 class Note(object):
-    def __init__(self, pitch_value, preferred_enharmonic=None):
+    def __init__(self, pitch_value, preferred_enharmonic_index=None):
         self.pitch_value = pitch_value
         self.enharmonics_list = ALL_PITCHES[self.pitch_value]
-        if preferred_enharmonic == None:
-            self.preferred_enharmonic = self.get_biased_index() # Int representing an index for enharmonics_list.
+        if preferred_enharmonic_index == None:
+            self.preferred_enharmonic_index = self.get_biased_index() # Int representing an index for enharmonics_list.
         else:
-            self.preferred_enharmonic = preferred_enharmonic
+            self.preferred_enharmonic_index = preferred_enharmonic_index
 
     def get_string(self):
-        return self.enharmonics_list[self.preferred_enharmonic]
+        return self.enharmonics_list[self.preferred_enharmonic_index]
 
     def get_biased_index(self):
         """
@@ -53,7 +53,7 @@ class Arpeggio(object):
         self.root = root # Note object
         self.quality = quality # String found in VALID_QUALITIES
         self.notes = self.get_notes() # List of note objects
-        self.assign_preferred_enharmonics()
+        self.assign_correct_preferred_enharmonics()
 
     def get_notes(self):
         """
@@ -67,16 +67,22 @@ class Arpeggio(object):
             result.append(Note(next_pitch_value))
         return result
     
-    def assign_preferred_enharmonics(self):
+    def assign_correct_preferred_enharmonics(self):
+        """"
+        Each note above the root in the arpeggio will have its preferred_enharmonic_index reassigned to match the correct spelling of
+        the arpeggio relative to the root.
+        """
         i = 0
+        root_primary_pitch_index = MUSICAL_ALPHABET.index(self.root.enharmonics_list[self.root.preferred_enharmonic_index][0])
         for note in self.notes:
             if note.pitch_value == self.root.pitch_value: # Enharmonic for the root will not be reassigned.
                 pass
             else:
-                 primary_pitch = MUSICAL_ALPHABET[((self.root.pitch_value + int(QUALITIES[self.quality][i][1])) - 2)] # Fix!
+                 primary_pitch = MUSICAL_ALPHABET[(((root_primary_pitch_index + int(QUALITIES[self.quality][i][1])) - 1) % 7)]
                  for enharmonic in note.enharmonics_list:
-                    if enharmonic.startswith(primary_pitch): # Find a way to do this that ends the loop when successful.
-                        note.preferred_enharmonic = note.enharmonics_list.index(enharmonic)
+                    if enharmonic.startswith(primary_pitch):
+                        note.preferred_enharmonic_index = note.enharmonics_list.index(enharmonic)
+                        break # There is only one correct enharmonic per note. No further looping required.
                  i += 1
 
 def get_random_note():
@@ -84,6 +90,5 @@ def get_random_note():
 
 if __name__ == "__main__":
     n = get_random_note()
-    print(n.preferred_enharmonic)
-    a = Arpeggio(n, "diminished")
-    print([note.enharmonics_list for note in a.notes])
+    a = Arpeggio(n, "major")
+    print([note.enharmonics_list[note.preferred_enharmonic_index] for note in a.notes])

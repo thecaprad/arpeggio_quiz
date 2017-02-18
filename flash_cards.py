@@ -23,7 +23,7 @@ VALID_QUALITIES = QUALITIES.keys() # "major", "minor", etc.
 def get_random_note():
     return Note(random.choice(ALL_PITCHES.keys()))
 
-def get_random_quality()
+def get_random_quality():
     return random.choice(VALID_QUALITIES)
 
 def get_random_arpeggio():
@@ -95,6 +95,4 @@ class Arpeggio(object):
                  i += 1
 
 if __name__ == "__main__":
-    n = get_random_note()
-    a = Arpeggio(n, "major")
-    print([note.enharmonics_list[note.preferred_enharmonic_index] for note in a.notes])
+    pass

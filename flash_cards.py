@@ -20,6 +20,15 @@ INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
 VALID_QUALITIES = QUALITIES.keys() # "major", "minor", etc.
 
+def get_random_note():
+    return Note(random.choice(ALL_PITCHES.keys()))
+
+def get_random_quality()
+    return random.choice(VALID_QUALITIES)
+
+def get_random_arpeggio():
+    return Arpeggio(get_random_note(), get_random_quality())
+
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):
         self.pitch_value = pitch_value
@@ -84,9 +93,6 @@ class Arpeggio(object):
                         note.preferred_enharmonic_index = note.enharmonics_list.index(enharmonic)
                         break # There is only one correct enharmonic per note. No further looping required.
                  i += 1
-
-def get_random_note():
-    return Note(random.choice(ALL_PITCHES.keys()))
 
 if __name__ == "__main__":
     n = get_random_note()

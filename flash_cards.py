@@ -29,6 +29,15 @@ def get_random_quality():
 def get_random_arpeggio():
     return Arpeggio(get_random_note(), get_random_quality())
 
+def identification_quiz():
+    arpeggio = get_random_arpeggio()
+    arpeggio_name = arpeggio.get_name_string()
+    answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string()))
+    if answer == arpeggio.quality:
+        print("Good on ya! The arpeggio is indeed {}.".format(arpeggio_name))
+    else:
+        print("Nayeth. The arpeggio was in fact {}.".format(arpeggio_name))
+
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):
         self.pitch_value = pitch_value
@@ -82,7 +91,7 @@ class Arpeggio(object):
         the arpeggio relative to the root.
         """
         i = 0
-        root_primary_pitch_index = MUSICAL_ALPHABET.index(self.root.enharmonics_list[self.root.preferred_enharmonic_index][0])
+        root_primary_pitch_index = MUSICAL_ALPHABET.index(self.root.get_string()[0])
         for note in self.notes:
             if note.pitch_value == self.root.pitch_value: # Enharmonic for the root will not be reassigned.
                 pass
@@ -94,5 +103,11 @@ class Arpeggio(object):
                         break # There is only one correct enharmonic per note. No further looping required.
                  i += 1
 
+    def get_notes_string(self): # "D, F#, A"
+        return ", ".join([note.get_string() for note in self.notes])
+
+    def get_name_string(self): # "G major"
+        return "{} {}".format(self.root.get_string(), self.quality)
+
 if __name__ == "__main__":
-    pass
+    identification_quiz()

@@ -33,7 +33,7 @@ def identification_quiz():
     arpeggio = get_random_arpeggio()
     arpeggio_name = arpeggio.get_name_string()
     answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string()))
-    if answer == arpeggio.quality:
+    if answer.lower() == arpeggio.quality:
         print("Good on ya! The arpeggio is indeed {}.".format(arpeggio_name))
     else:
         print("Nayeth. The arpeggio was in fact {}.".format(arpeggio_name))

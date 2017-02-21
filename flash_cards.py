@@ -86,7 +86,7 @@ class Arpeggio(object):
         return result
     
     def assign_correct_preferred_enharmonics(self):
-        """"
+        """
         Each note above the root in the arpeggio will have its preferred_enharmonic_index reassigned to match the correct spelling of
         the arpeggio relative to the root.
         """

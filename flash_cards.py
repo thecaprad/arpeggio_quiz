@@ -36,11 +36,14 @@ def identification_quiz():
         answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
         if answer == "quit":
             break
-        if answer == arpeggio.quality:
-            print("Good on ya! The arpeggio is indeed {}.".format(arpeggio_name))
+        if answer not in VALID_QUALITIES:
+            print("Please enter a valid quality. (i.e., {})".format(", ".join(VALID_QUALITIES)))
         else:
-            print("Nayeth. The arpeggio was in fact {}.".format(arpeggio_name))
-        print
+            if answer == arpeggio.quality:
+                print("Good on ya! The arpeggio is indeed {}.".format(arpeggio_name))
+            else:
+                print("Nayeth. The arpeggio was in fact {}.".format(arpeggio_name))
+            print
 
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):

@@ -20,6 +20,9 @@ INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
 VALID_QUALITIES = QUALITIES.keys() # "major", "minor", etc.
 
+class QuitPrompt(Exception):
+    pass
+
 def get_random_note():
     return Note(random.choice(ALL_PITCHES.keys()))
 
@@ -31,19 +34,22 @@ def get_random_arpeggio():
 
 def identification_quiz():
     while 1:
+        unsolved = True
         arpeggio = get_random_arpeggio()
         arpeggio_name = arpeggio.get_name_string()
-        answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
-        if answer == "quit":
-            break
-        if answer not in VALID_QUALITIES:
-            print("Please enter a valid quality. (i.e., {})".format(", ".join(VALID_QUALITIES)))
-        else:
-            if answer == arpeggio.quality:
-                print("Good on ya! The arpeggio is indeed {}.".format(arpeggio_name))
+        while unsolved:
+            answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
+#             if answer == "quit":
+#                 raise QuitPrompt
+            if answer not in VALID_QUALITIES:
+                print("Please enter a valid quality. (i.e., {})".format(", ".join(VALID_QUALITIES)))
             else:
-                print("Nayeth. The arpeggio was in fact {}.".format(arpeggio_name))
-            print
+                if answer == arpeggio.quality:
+                    print("Good on ya! The arpeggio is indeed {}.".format(arpeggio_name))
+                else:
+                    print("Nayeth. The arpeggio was in fact {}.".format(arpeggio_name))
+                unsolved = False
+                print
 
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):

@@ -33,23 +33,27 @@ def get_random_arpeggio():
     return Arpeggio(get_random_note(), get_random_quality())
 
 def identification_quiz():
+    """
+    Prompt spells a randomly generated arpeggio and asks the user to define its quality.
+    """
+    solved = True # Forces first loop to generate a new arpeggio.
     while 1:
-        unsolved = True
-        arpeggio = get_random_arpeggio()
-        arpeggio_name = arpeggio.get_name_string()
-        while unsolved:
-            answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
-#             if answer == "quit":
-#                 raise QuitPrompt
-            if answer not in VALID_QUALITIES:
-                print("Please enter a valid quality. (i.e., {})".format(", ".join(VALID_QUALITIES)))
+        if solved:
+            arpeggio = get_random_arpeggio()
+        solved = False
+        answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
+        if answer == "quit":
+            break
+        if answer not in VALID_QUALITIES:
+            print("Please enter a valid quality. (i.e., {})".format(", ".join(VALID_QUALITIES)))
+        else:
+            if answer == arpeggio.quality:
+                print("Good on ya! The arpeggio is indeed {}.".format(arpeggio.get_name_string()))
+                solved = True
             else:
-                if answer == arpeggio.quality:
-                    print("Good on ya! The arpeggio is indeed {}.".format(arpeggio_name))
-                else:
-                    print("Nayeth. The arpeggio was in fact {}.".format(arpeggio_name))
-                unsolved = False
-                print
+                print("Nayeth. The arpeggio was in fact {}.".format(arpeggio.get_name_string()))
+                solved = True
+        print
 
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):

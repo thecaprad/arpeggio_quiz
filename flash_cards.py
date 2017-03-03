@@ -55,6 +55,30 @@ def identification_quiz():
                 solved = True
         print
 
+def spelling_quiz():
+    """
+    Prompt asks the user to spell a randomly generated arpeggio.
+    """
+    solved = True
+    while 1:
+        if solved:
+            arpeggio = get_random_arpeggio()
+            chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
+        solved = False
+        print("Spell {}".format(arpeggio.get_name_string()))
+        i, correct = 0, True # Used to control loop.
+        for note in arpeggio.notes:
+            answer = raw_input("{}: ".format(chord_intervals[i]))
+            i += 1
+            if not answer.lower() == note.get_string().lower():
+                correct = False
+        print(arpeggio.get_name_string())
+        if correct:
+            print("Good on ya! {} is indeed spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string()))
+        else:
+            print("Not so hot! {} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string()))
+        solved = True
+
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):
         self.pitch_value = pitch_value
@@ -127,4 +151,4 @@ class Arpeggio(object):
         return "{} {}".format(self.root.get_string(), self.quality)
 
 if __name__ == "__main__":
-    identification_quiz()
+    spelling_quiz()

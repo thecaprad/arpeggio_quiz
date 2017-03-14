@@ -32,40 +32,28 @@ def get_random_quality():
 def get_random_arpeggio():
     return Arpeggio(get_random_note(), get_random_quality())
 
-def identification_quiz():
-    """
-    Prompt spells a randomly generated arpeggio and asks the user to define its quality.
-    """
+def run_quiz_prompt(quiz_function):
+    # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
     solved = True # Forces first loop to generate a new arpeggio.
     while 1:
         if solved:
             arpeggio = get_random_arpeggio()
             answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
         solved = False
-        answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
-        if answer == "quit":
-            break
-        if answer not in VALID_QUALITIES:
-            print("Please enter a valid quality. (i.e., {})".format(", ".join(VALID_QUALITIES)))
+        if quiz_function(arpeggio):
+            print("Good on ya! " + answer_string)
         else:
-            if answer == arpeggio.quality:
-                print("Good on ya! " + answer_string)
-            else:
-                print("Nayeth. " + answer_string)
-            solved = True
+            print("Nayeth. " + answer_string)
+        solved = True
         print
 
-def spelling_quiz():
-    """
-    Prompt asks the user to spell a randomly generated arpeggio.
-    """
-    solved = True
-    while 1:
-        if solved:
-            arpeggio = get_random_arpeggio()
-            answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
-            chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
-        solved = False
+def identification_quiz(arpeggio):
+        answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
+        if answer == arpeggio.quality:
+            return True
+
+def spelling_quiz(arpeggio):
+        chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
         print("Spell {}".format(arpeggio.get_name_string()))
         i, correct = 0, True # Used to control loop.
         for note in arpeggio.notes:
@@ -75,10 +63,7 @@ def spelling_quiz():
                 correct = False
         print(arpeggio.get_name_string())
         if correct:
-            print("Good on ya! " + answer_string)
-        else:
-            print("Not so hot! " + answer_string)
-        solved = True
+            return True
 
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):
@@ -152,4 +137,4 @@ class Arpeggio(object):
         return "{} {}".format(self.root.get_string(), self.quality)
 
 if __name__ == "__main__":
-    identification_quiz()
+    run_quiz_prompt(identification_quiz)

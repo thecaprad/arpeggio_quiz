@@ -40,6 +40,7 @@ def identification_quiz():
     while 1:
         if solved:
             arpeggio = get_random_arpeggio()
+            answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
         solved = False
         answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
         if answer == "quit":
@@ -48,11 +49,10 @@ def identification_quiz():
             print("Please enter a valid quality. (i.e., {})".format(", ".join(VALID_QUALITIES)))
         else:
             if answer == arpeggio.quality:
-                print("Good on ya! The arpeggio is indeed {}.".format(arpeggio.get_name_string()))
-                solved = True
+                print("Good on ya! " + answer_string)
             else:
-                print("Nayeth. The arpeggio was in fact {}.".format(arpeggio.get_name_string()))
-                solved = True
+                print("Nayeth. " + answer_string)
+            solved = True
         print
 
 def spelling_quiz():
@@ -152,4 +152,4 @@ class Arpeggio(object):
         return "{} {}".format(self.root.get_string(), self.quality)
 
 if __name__ == "__main__":
-    spelling_quiz()
+    identification_quiz()

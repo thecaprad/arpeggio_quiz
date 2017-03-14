@@ -63,6 +63,7 @@ def spelling_quiz():
     while 1:
         if solved:
             arpeggio = get_random_arpeggio()
+            answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
             chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
         solved = False
         print("Spell {}".format(arpeggio.get_name_string()))
@@ -74,9 +75,9 @@ def spelling_quiz():
                 correct = False
         print(arpeggio.get_name_string())
         if correct:
-            print("Good on ya! {} is indeed spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string()))
+            print("Good on ya! " + answer_string)
         else:
-            print("Not so hot! {} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string()))
+            print("Not so hot! " + answer_string)
         solved = True
 
 class Note(object):

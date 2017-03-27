@@ -18,7 +18,7 @@ ALL_PITCHES = {
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
 INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
-VALID_QUALITIES = QUALITIES.keys() # "major", "minor", etc.
+VALID_QUALITIES = QUALITIES.keys() # ["major", "minor", etc.]
 
 class QuitPrompt(Exception):
     pass
@@ -49,6 +49,8 @@ def run_quiz_prompt(quiz_function):
 
 def identification_quiz(arpeggio):
         answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
+        while answer not in VALID_QUALITIES:
+            answer = raw_input("Please enter a valid quality (i.e., {}): ".format(", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # The double use of "format" looks ugly. Desired effect is "'major', 'minor'" rather than "major, minor".
         if answer == arpeggio.quality:
             return True
 

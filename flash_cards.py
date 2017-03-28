@@ -20,9 +20,6 @@ INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
 VALID_QUALITIES = QUALITIES.keys() # ["major", "minor", etc.]
 
-class QuitPrompt(Exception):
-    pass
-
 def get_random_note():
     return Note(random.choice(ALL_PITCHES.keys()))
 
@@ -31,6 +28,14 @@ def get_random_quality():
 
 def get_random_arpeggio():
     return Arpeggio(get_random_note(), get_random_quality())
+
+def select_quiz(): # Helper function prompts user to select a quiz type and returns the corresponding quiz function.
+    available_quizes = {"1": spelling_quiz, "2": identification_quiz}
+    available_quizes_str = "('1' = spelling, '2' = identifying)"
+    selection = raw_input("Would you like practice spelling or identifying arpeggios? {}: ".format(available_quizes_str))
+    while selection not in available_quizes:
+        selection = raw_input("Please enter a valid option {}: ".format(available_quizes_str))
+    return available_quizes[selection]
 
 def run_quiz_prompt(quiz_function):
     # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
@@ -139,4 +144,4 @@ class Arpeggio(object):
         return "{} {}".format(self.root.get_string(), self.quality)
 
 if __name__ == "__main__":
-    run_quiz_prompt(identification_quiz)
+    run_quiz_prompt(select_quiz())

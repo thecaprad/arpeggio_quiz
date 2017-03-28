@@ -1,6 +1,6 @@
 import unittest, random
 
-from flash_cards import Note, Arpeggio
+from arpeggio_quiz import Note, Arpeggio
 
 class AssignEnharmonicTests(unittest.TestCase):
     def test_A_M3(self):

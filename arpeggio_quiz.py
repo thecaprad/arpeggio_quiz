@@ -45,12 +45,15 @@ def run_quiz_prompt(quiz_function):
             arpeggio = get_random_arpeggio()
             answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
         solved = False
-        if quiz_function(arpeggio):
-            print("Good on ya! " + answer_string)
-        else:
-            print("Nayeth. " + answer_string)
-        solved = True
-        print
+        try:
+            if quiz_function(arpeggio):
+                print("Good on ya! " + answer_string)
+            else:
+                print("Nayeth. " + answer_string)
+            solved = True
+            print
+        except KeyboardInterrupt:
+            break
 
 def identification_quiz(arpeggio):
     answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()

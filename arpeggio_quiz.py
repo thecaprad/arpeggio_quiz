@@ -53,24 +53,24 @@ def run_quiz_prompt(quiz_function):
         print
 
 def identification_quiz(arpeggio):
-        answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
-        while answer not in VALID_QUALITIES:
-            answer = raw_input("Please enter a valid quality (i.e., {}): ".format(", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # The double use of "format" looks ugly. Desired effect is "'major', 'minor'" rather than "major, minor".
-        if answer == arpeggio.quality:
-            return True
+    answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
+    while answer not in VALID_QUALITIES:
+        answer = raw_input("Please enter a valid quality (i.e., {}): ".format(", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # The double use of "format" looks ugly. Desired effect is "'major', 'minor'" rather than "major, minor".
+    if answer == arpeggio.quality:
+        return True
 
 def spelling_quiz(arpeggio):
-        chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
-        print("Spell {}".format(arpeggio.get_name_string()))
-        i, correct = 0, True # Used to control loop.
-        for note in arpeggio.notes:
-            answer = raw_input("{}: ".format(chord_intervals[i]))
-            i += 1
-            if not answer.lower() == note.get_string().lower():
-                correct = False
-        print(arpeggio.get_name_string())
-        if correct:
-            return True
+    chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
+    print("Spell {}".format(arpeggio.get_name_string()))
+    i, correct = 0, True # Used to control loop.
+    for note in arpeggio.notes:
+        answer = raw_input("{}: ".format(chord_intervals[i]))
+        i += 1
+        if not answer.lower() == note.get_string().lower():
+            correct = False
+    print(arpeggio.get_name_string())
+    if correct:
+        return True
 
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):

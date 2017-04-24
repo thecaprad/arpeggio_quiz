@@ -19,6 +19,7 @@ MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
 INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
 VALID_QUALITIES = QUALITIES.keys() # ["major", "minor", etc.]
+QUIT_STR = "(Type 'quit' at any time to stop.)"
 
 def get_random_note():
     return Note(random.choice(ALL_PITCHES.keys()))
@@ -46,7 +47,10 @@ def run_quiz_prompt(quiz_function):
             answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
         solved = False
         try:
-            if quiz_function(arpeggio):
+            result = quiz_function(arpeggio)
+            if result == "quit":
+                break
+            elif result:
                 print("Good on ya! " + answer_string)
             else:
                 print("Nayeth. " + answer_string)
@@ -56,7 +60,9 @@ def run_quiz_prompt(quiz_function):
             break
 
 def identification_quiz(arpeggio):
-    answer = raw_input("Identify the quality of this arpeggio: '{}': ".format(arpeggio.get_notes_string())).lower()
+    answer = raw_input("Identify the quality of arpeggio '{}'. {}: ".format(arpeggio.get_notes_string(), QUIT_STR)).lower()
+    if answer.lower() == "quit":
+        return "quit"
     while answer not in VALID_QUALITIES:
         answer = raw_input("Please enter a valid quality (i.e., {}): ".format(", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # The double use of "format" looks ugly. Desired effect is "'major', 'minor'" rather than "major, minor".
     if answer == arpeggio.quality:
@@ -64,10 +70,12 @@ def identification_quiz(arpeggio):
 
 def spelling_quiz(arpeggio):
     chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
-    print("Spell {}".format(arpeggio.get_name_string()))
+    print("Spell {}. {}".format(arpeggio.get_name_string(), QUIT_STR))
     i, correct = 0, True # Used to control loop.
     for note in arpeggio.notes:
         answer = raw_input("{}: ".format(chord_intervals[i]))
+        if answer.lower() == "quit":
+            return "quit"
         i += 1
         if not answer.lower() == note.get_string().lower():
             correct = False

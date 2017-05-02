@@ -33,31 +33,37 @@ def get_random_arpeggio():
 def select_quiz(): # Helper function prompts user to select a quiz type and returns the corresponding quiz function.
     available_quizes = {"1": spelling_quiz, "2": identification_quiz}
     available_quizes_str = "('1' = spelling, '2' = identifying)"
-    selection = raw_input("Would you like practice spelling or identifying arpeggios? {}: ".format(available_quizes_str))
-    while selection not in available_quizes:
-        selection = raw_input("Please enter a valid option {}: ".format(available_quizes_str))
-    return available_quizes[selection]
+    try:
+        selection = raw_input("Would you like practice spelling or identifying arpeggios? {}: ".format(available_quizes_str))
+        while selection not in available_quizes:
+            selection = raw_input("Please enter a valid option {}: ".format(available_quizes_str))
+        return available_quizes[selection]
+    except KeyboardInterrupt:
+        return
 
 def run_quiz_prompt(quiz_function):
     # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
-    solved = True # Forces first loop to generate a new arpeggio.
-    while 1:
-        if solved:
-            arpeggio = get_random_arpeggio()
-            answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
-        solved = False
-        try:
-            result = quiz_function(arpeggio)
-            if result == "quit":
+    if not quiz_function: # Catches KeyboardInterrupt from `select_quiz()` and ends function.
+        pass
+    else:
+        solved = True # Forces first loop to generate a new arpeggio.
+        while 1:
+            if solved: # Generates a new arpeggio.
+                arpeggio = get_random_arpeggio()
+                answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
+            solved = False
+            try:
+                result = quiz_function(arpeggio)
+                if result == "quit":
+                    break
+                elif result:
+                    print("Good on ya! " + answer_string)
+                else:
+                    print("Nayeth. " + answer_string)
+                solved = True
+                print
+            except KeyboardInterrupt:
                 break
-            elif result:
-                print("Good on ya! " + answer_string)
-            else:
-                print("Nayeth. " + answer_string)
-            solved = True
-            print
-        except KeyboardInterrupt:
-            break
 
 def identification_quiz(arpeggio):
     answer = raw_input("Identify the quality of arpeggio '{}'. {}: ".format(arpeggio.get_notes_string(), QUIT_STR)).lower()

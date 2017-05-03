@@ -46,12 +46,9 @@ def run_quiz_prompt(quiz_function):
     if not quiz_function: # Catches KeyboardInterrupt from `select_quiz()` and ends function.
         pass
     else:
-        solved = True # Forces first loop to generate a new arpeggio.
         while 1:
-            if solved: # Generates a new arpeggio.
-                arpeggio = get_random_arpeggio()
-                answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
-            solved = False
+            arpeggio = get_random_arpeggio()
+            answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
             try:
                 result = quiz_function(arpeggio)
                 if result == "quit":
@@ -60,7 +57,6 @@ def run_quiz_prompt(quiz_function):
                     print("Good on ya! " + answer_string)
                 else:
                     print("Nayeth. " + answer_string)
-                solved = True
                 print
             except KeyboardInterrupt:
                 break

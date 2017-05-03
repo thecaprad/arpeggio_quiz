@@ -68,8 +68,7 @@ def identification_quiz(arpeggio):
     while answer not in VALID_QUALITIES:
         answer = raw_input("Please enter a valid quality (i.e., {}): ".format
         (", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # 'major', 'minor', etc.
-    if answer == arpeggio.quality:
-        return True
+    return answer == arpeggio.quality
 
 def spelling_quiz(arpeggio):
     chord_intervals = ["R"] + QUALITIES[arpeggio.quality]

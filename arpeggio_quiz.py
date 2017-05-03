@@ -66,7 +66,8 @@ def identification_quiz(arpeggio):
     if answer.lower() == "quit":
         return "quit"
     while answer not in VALID_QUALITIES:
-        answer = raw_input("Please enter a valid quality (i.e., {}): ".format(", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # The double use of "format" looks ugly. Desired effect is "'major', 'minor'" rather than "major, minor".
+        answer = raw_input("Please enter a valid quality (i.e., {}): ".format
+        (", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # 'major', 'minor', etc.
     if answer == arpeggio.quality:
         return True
 

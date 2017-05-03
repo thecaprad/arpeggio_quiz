@@ -73,17 +73,16 @@ def identification_quiz(arpeggio):
 def spelling_quiz(arpeggio):
     chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
     print("Spell {}. {}".format(arpeggio.get_name_string(), QUIT_STR))
-    i, correct = 0, True # Used to control loop.
+    chord_interval_index = 0
+    correct = True # Used to control loop.
     for note in arpeggio.notes:
-        answer = raw_input("{}: ".format(chord_intervals[i]))
+        answer = raw_input("{}: ".format(chord_intervals[chord_interval_index]))
         if answer.lower() == "quit":
             return "quit"
-        i += 1
+        chord_interval_index += 1
         if not answer.lower() == note.get_string().lower():
             correct = False
-    print(arpeggio.get_name_string())
-    if correct:
-        return True
+    return correct
 
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):

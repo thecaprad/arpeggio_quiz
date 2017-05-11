@@ -19,6 +19,12 @@ MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
 INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
 VALID_QUALITIES = QUALITIES.keys() # ["major", "minor", etc.]
+VALID_QUALITY_ALIASES_MAP = {
+    "major": ["major", "maj"],
+    "minor": ["minor", "min"],
+    "diminished": ["diminished", "dim"],
+}
+ALL_VALID_QUALITY_ALIASES = [alias for quality_list in VALID_QUALITY_ALIASES_MAP.values() for alias in quality_list] # ["major", "maj", "diminished", "dim", etc.]
 QUIT_STR = "(Type 'quit' at any time to stop.)"
 
 def get_random_note():
@@ -29,6 +35,9 @@ def get_random_quality():
 
 def get_random_arpeggio():
     return Arpeggio(get_random_note(), get_random_quality())
+
+def is_valid_quality_alias(unchecked_alias, arpeggio):
+    return unchecked_alias.lower() in VALID_QUALITY_ALIASES_MAP[arpeggio.quality]
 
 def select_quiz(): # Helper function prompts user to select a quiz type and returns the corresponding quiz function.
     available_quizes = {"1": spelling_quiz, "2": identification_quiz}
@@ -65,10 +74,10 @@ def identification_quiz(arpeggio):
     answer = raw_input("Identify the quality of arpeggio '{}'. {}: ".format(arpeggio.get_notes_string(), QUIT_STR)).lower()
     if answer.lower() == "quit":
         return "quit"
-    while answer not in VALID_QUALITIES:
+    while answer not in ALL_VALID_QUALITY_ALIASES:
         answer = raw_input("Please enter a valid quality (i.e., {}): ".format
         (", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # 'major', 'minor', etc.
-    return answer == arpeggio.quality
+    return is_valid_quality_alias(answer, arpeggio)
 
 def spelling_quiz(arpeggio):
     chord_intervals = ["R"] + QUALITIES[arpeggio.quality]

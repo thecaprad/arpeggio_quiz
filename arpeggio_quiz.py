@@ -161,6 +161,6 @@ class Arpeggio(object):
 if __name__ == "__main__":
     try:
         run_quiz_prompt(select_quiz())
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, EOFError):
         print
         pass

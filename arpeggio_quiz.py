@@ -56,9 +56,7 @@ def run_quiz_prompt(quiz_function):
             arpeggio = get_random_arpeggio()
             answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
             result = quiz_function(arpeggio)
-            if result == "quit":
-                break
-            elif result:
+            if result:
                 print("Good on ya! " + answer_string)
             else:
                 print("Nayeth. " + answer_string)
@@ -67,7 +65,7 @@ def run_quiz_prompt(quiz_function):
 def identification_quiz(arpeggio):
     answer = raw_input("Identify the quality of arpeggio '{}'. {}: ".format(arpeggio.get_notes_string(), QUIT_STR)).lower()
     if answer.lower() == "quit":
-        return "quit"
+        raise KeyboardInterrupt
     while answer not in ALL_VALID_QUALITY_ALIASES:
         answer = raw_input("Please enter a valid quality (i.e., {}): ".format
         (", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # 'major', 'minor', etc.
@@ -81,7 +79,7 @@ def spelling_quiz(arpeggio):
     for note in arpeggio.notes:
         answer = raw_input("{}: ".format(chord_intervals[chord_interval_index]))
         if answer.lower() == "quit":
-            return "quit"
+            raise KeyboardInterrupt
         chord_interval_index += 1
         if not answer.lower() == note.get_string().lower():
             correct = False

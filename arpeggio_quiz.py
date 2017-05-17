@@ -42,13 +42,10 @@ def is_valid_quality_alias(unchecked_alias, arpeggio):
 def select_quiz(): # Helper function prompts user to select a quiz type and returns the corresponding quiz function.
     available_quizes = {"1": spelling_quiz, "2": identification_quiz}
     available_quizes_str = "('1' = spelling, '2' = identifying)"
-    try:
-        selection = raw_input("Would you like practice spelling or identifying arpeggios? {}: ".format(available_quizes_str))
-        while selection not in available_quizes:
-            selection = raw_input("Please enter a valid option {}: ".format(available_quizes_str))
-        return available_quizes[selection]
-    except KeyboardInterrupt:
-        return
+    selection = raw_input("Would you like practice spelling or identifying arpeggios? {}: ".format(available_quizes_str))
+    while selection not in available_quizes:
+        selection = raw_input("Please enter a valid option {}: ".format(available_quizes_str))
+    return available_quizes[selection]
 
 def run_quiz_prompt(quiz_function):
     # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
@@ -58,17 +55,14 @@ def run_quiz_prompt(quiz_function):
         while 1:
             arpeggio = get_random_arpeggio()
             answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
-            try:
-                result = quiz_function(arpeggio)
-                if result == "quit":
-                    break
-                elif result:
-                    print("Good on ya! " + answer_string)
-                else:
-                    print("Nayeth. " + answer_string)
-                print
-            except KeyboardInterrupt:
+            result = quiz_function(arpeggio)
+            if result == "quit":
                 break
+            elif result:
+                print("Good on ya! " + answer_string)
+            else:
+                print("Nayeth. " + answer_string)
+            print
 
 def identification_quiz(arpeggio):
     answer = raw_input("Identify the quality of arpeggio '{}'. {}: ".format(arpeggio.get_notes_string(), QUIT_STR)).lower()
@@ -165,4 +159,8 @@ class Arpeggio(object):
         return "{} {}".format(self.root.get_string(), self.quality)
 
 if __name__ == "__main__":
-    run_quiz_prompt(select_quiz())
+    try:
+        run_quiz_prompt(select_quiz())
+    except KeyboardInterrupt:
+        print
+        pass

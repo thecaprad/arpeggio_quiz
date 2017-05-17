@@ -19,6 +19,7 @@ MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
 INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
 VALID_QUALITIES = QUALITIES.keys() # ["major", "minor", etc.]
+VALID_PRETTY_QUALITIES = ", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]) # "'major', 'minor', etc."
 VALID_QUALITY_ALIASES_MAP = {
     "major": ["major", "maj"],
     "minor": ["minor", "min"],
@@ -67,8 +68,7 @@ def identification_quiz(arpeggio):
     if answer.lower() == "quit":
         raise KeyboardInterrupt
     while answer not in ALL_VALID_QUALITY_ALIASES:
-        answer = raw_input("Please enter a valid quality (i.e., {}): ".format
-        (", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]))) # 'major', 'minor', etc.
+        answer = raw_input("Please enter a valid quality (i.e., {}): ".format(VALID_PRETTY_QUALITIES))
     return is_valid_quality_alias(answer, arpeggio)
 
 def spelling_quiz(arpeggio):

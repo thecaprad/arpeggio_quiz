@@ -15,6 +15,8 @@ ALL_PITCHES = {
     12: ["G#", "Ab"]
 }
 
+VALID_PITCHES_LOWER = [pitch.lower() for pitch_list in ALL_PITCHES.values() for pitch in pitch_list]
+
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
 INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
 QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
@@ -80,6 +82,9 @@ def spelling_quiz(arpeggio):
         answer = raw_input("{}: ".format(chord_intervals[chord_interval_index]))
         if answer.lower() == "quit":
             raise KeyboardInterrupt
+        while answer.lower() not in VALID_PITCHES_LOWER:
+            print("Please enter a valid quality (e.g., 'C#', 'F', 'Ab', etc.)")
+            answer = raw_input("{}: ".format(chord_intervals[chord_interval_index]))
         chord_interval_index += 1
         if not answer.lower() == note.get_string().lower():
             correct = False

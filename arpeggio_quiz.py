@@ -66,25 +66,24 @@ def run_quiz_prompt(quiz_function):
             print
 
 def identification_quiz(arpeggio):
-    answer = raw_input("Identify the quality of arpeggio '{}'. {}: ".format(arpeggio.get_notes_string(), QUIT_STR)).lower()
-    if answer.lower() == "quit":
-        raise KeyboardInterrupt
+    answer = ""
     while answer not in ALL_VALID_QUALITY_ALIASES:
-        answer = raw_input("Please enter a valid quality (i.e., {}): ".format(VALID_PRETTY_QUALITIES))
+        answer = raw_input("Identify the quality of arpeggio '{}'. {}: ".format(arpeggio.get_notes_string(), QUIT_STR)).lower()
+        if answer.lower() == "quit":
+            raise KeyboardInterrupt
     return is_valid_quality_alias(answer, arpeggio)
 
 def spelling_quiz(arpeggio):
     chord_intervals = ["R"] + QUALITIES[arpeggio.quality]
-    print("Spell {}. {}".format(arpeggio.get_name_string(), QUIT_STR))
+    print("Spell out each interval of {}. {}".format(arpeggio.get_name_string(), QUIT_STR))
     chord_interval_index = 0
     correct = True # Used to control loop.
     for note in arpeggio.notes:
-        answer = raw_input("{}: ".format(chord_intervals[chord_interval_index]))
-        if answer.lower() == "quit":
-            raise KeyboardInterrupt
-        while answer.lower() not in VALID_PITCHES_LOWER:
-            print("Please enter a valid quality (e.g., 'C#', 'F', 'Ab', etc.)")
+        answer = ""
+        while answer.lower() not in VALID_PITCHES_LOWER: # Catches typos, and allows user to resubmit.
             answer = raw_input("{}: ".format(chord_intervals[chord_interval_index]))
+            if answer.lower() == "quit":
+                raise KeyboardInterrupt
         chord_interval_index += 1
         if not answer.lower() == note.get_string().lower():
             correct = False

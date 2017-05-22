@@ -45,9 +45,11 @@ def is_valid_quality_alias(unchecked_alias, arpeggio):
 def select_quiz(): # Helper function prompts user to select a quiz type and returns the corresponding quiz function.
     available_quizes = {"1": spelling_quiz, "2": identification_quiz}
     available_quizes_str = "('1' = spelling, '2' = identifying)"
-    selection = raw_input("Would you like practice spelling or identifying arpeggios? {}: ".format(available_quizes_str))
+    selection = ""
     while selection not in available_quizes:
-        selection = raw_input("Please enter a valid option {}: ".format(available_quizes_str))
+        selection = raw_input("Would you like practice spelling or identifying arpeggios? {}: ".format(available_quizes_str))
+        if selection.lower() == "quit":
+            raise KeyboardInterrupt
     return available_quizes[selection]
 
 def run_quiz_prompt(quiz_function):

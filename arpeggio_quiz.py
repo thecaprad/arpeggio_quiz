@@ -36,8 +36,10 @@ def get_random_note():
 def get_random_quality():
     return random.choice(VALID_QUALITIES)
 
-def get_random_arpeggio():
-    return Arpeggio(get_random_note(), get_random_quality())
+def get_random_arpeggio(quality=None):
+    if not quality:
+        quality = get_random_quality()
+    return Arpeggio(get_random_note(), quality)
 
 def is_valid_quality_alias(unchecked_alias, arpeggio):
     return unchecked_alias.lower() in VALID_QUALITY_ALIASES_MAP[arpeggio.quality]

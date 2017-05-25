@@ -56,8 +56,14 @@ def select_quiz(): # Helper function prompts user to select a quiz type and retu
 
 def run_quiz_prompt(quiz_function):
     # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
+    selected_quality = None
+    if quiz_function == spelling_quiz:
+        selected_quality = raw_input("What quality would you like to practice? "
+        "({} or 'random'): ".format(VALID_PRETTY_QUALITIES))
+        if selected_quality not in VALID_QUALITIES:
+            selected_quality = None
     while 1:
-        arpeggio = get_random_arpeggio()
+        arpeggio = get_random_arpeggio(selected_quality)
         answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
         result = quiz_function(arpeggio)
         if result:

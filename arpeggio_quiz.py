@@ -58,9 +58,12 @@ def run_quiz_prompt(quiz_function):
     # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
     selected_quality = None
     if quiz_function == spelling_quiz:
-        selected_quality = raw_input("What quality would you like to practice? "
-        "({} or 'random'): ".format(VALID_PRETTY_QUALITIES))
-        if selected_quality not in VALID_QUALITIES:
+        valid_spelling_quiz_qualities_dict = dict(enumerate(VALID_QUALITIES, 1)) # {1: 'major', 2: 'diminished', etc.}
+        print(valid_spelling_quiz_qualities_dict)
+        try:
+            selected_quality_index = raw_input("Enter the number of quality you'd like to practice, or type any other key for random: ")
+            selected_quality = valid_spelling_quiz_qualities_dict[int(selected_quality_index)]
+        except KeyError:
             selected_quality = None
     while 1:
         arpeggio = get_random_arpeggio(selected_quality)

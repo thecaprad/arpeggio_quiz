@@ -18,14 +18,26 @@ ALL_PITCHES = {
 VALID_PITCHES_LOWER = [pitch.lower() for pitch_list in ALL_PITCHES.values() for pitch in pitch_list]
 
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
-INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8}
-QUALITIES = {"major": ["M3", "P5"], "minor": ["m3", "P5"], "diminished": ["m3", "b5"]} # Values are list of half step intervals above a root
+INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8, "m7": 10, "M7": 11, }
+QUALITIES = {  # Values are list of half step intervals above a root
+    "major": ["M3", "P5"], 
+    "minor": ["m3", "P5"], 
+    "diminished": ["m3", "b5"],
+    "major 7": ["M3", "P5", "M7"],
+    "minor 7": ["m3", "P5", "m7"],
+    "dominant 7": ["M3", "P5", "m7"],
+    "half diminished": ["m3", "b5", "m7"]
+}
 VALID_QUALITIES = QUALITIES.keys() # ["major", "minor", etc.]
 VALID_PRETTY_QUALITIES = ", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]) # "'major', 'minor', etc."
 VALID_QUALITY_ALIASES_MAP = {
     "major": ["major", "maj"],
     "minor": ["minor", "min"],
     "diminished": ["diminished", "dim"],
+    "major 7": ["major 7", "maj7", "maj 7", "M7"],
+    "minor 7": ["minor 7", "min7", "min 7", "m7", "-7"],
+    "dominant 7": ["dominant 7", "dominant", "dom 7", "dom7", "7", "dom"],
+    "half diminished": ["half diminished", "half dim", "m7b5", "m7(b5)", "-7b5", "-7(b5)"]
 }
 ALL_VALID_QUALITY_ALIASES = [alias for quality_list in VALID_QUALITY_ALIASES_MAP.values() for alias in quality_list] # ["major", "maj", "diminished", "dim", etc.]
 QUIT_STR = "(Type 'quit' at any time to stop.)"

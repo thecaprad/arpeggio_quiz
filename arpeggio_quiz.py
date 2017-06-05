@@ -68,6 +68,7 @@ def select_quiz(): # Helper function prompts user to select a quiz type and retu
         selection = raw_input("Would you like practice spelling or identifying arpeggios? {}: ".format(available_quizes_str))
         if selection.lower() == "quit":
             raise KeyboardInterrupt
+    print
     return available_quizes[selection]
 
 def get_selected_qualities_list():
@@ -77,12 +78,10 @@ def get_selected_qualities_list():
     """
     # Used in `spelling_quiz()` to practice spelling a specific quality arpeggio, like "minor".
     valid_spelling_quiz_qualities_dict = dict(enumerate(VALID_QUALITIES, 1)) # {1: 'major', 2: 'diminished', etc.}
-    valid_spelling_quiz_qualities_str = ", ".join(
-            ["'{}' = {}".format(number, quality) for number, quality in valid_spelling_quiz_qualities_dict.items()]
-        )
-    print(valid_spelling_quiz_qualities_str)
+    for number, quality in valid_spelling_quiz_qualities_dict.items():
+        print("'{}' = {}".format(number, quality)) 
     try:
-        selected_quality_indexes = raw_input("Enter the number of the quality you'd like to practice, or type any other key for random: ")
+        selected_quality_indexes = raw_input("Enter the numbers (separated by a comma) for the qualities you'd like to practice, or type any other key for random: ")
         result = []
         for quality_index in selected_quality_indexes.split(","):
             result.append(valid_spelling_quiz_qualities_dict[int(quality_index)])
@@ -90,13 +89,22 @@ def get_selected_qualities_list():
     except (ValueError, KeyError, TypeError):
         return None
 
+def print_selected_qualities(selected_qualities_list):
+    selected_string = "Selected qualities:"
+    try:
+        print("{} {}".format(selected_string, ", ".join(selected_qualities_list)))
+    except TypeError:
+        print("{} random".format(selected_string))
+    print
+
 def run_quiz_prompt(quiz_function):
     # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
     selected_quality = None # None will generate a random arpeggio.
     if quiz_function == spelling_quiz:
-        selected_quality = get_selected_qualities_list()
+        selected_qualities = get_selected_qualities_list()
+        print_selected_qualities(selected_qualities)
     while 1:
-        arpeggio = get_random_arpeggio(selected_quality)
+        arpeggio = get_random_arpeggio(selected_qualities)
         answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
         result = quiz_function(arpeggio)
         if result:

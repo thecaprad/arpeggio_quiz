@@ -2,12 +2,12 @@ import random
 
 ALL_PITCHES = {
     1: ["Gx", "A", "Bbb"],
-    2: ["A#", "Bb"],
+    2: ["A#", "Bb", "Cbb"],
     3: ["Ax", "B", "Cb"],
     4: ["B#", "C", "Dbb"],
     5: ["C#", "Db"],
     6: ["Cx", "D", "Ebb"],
-    7: ["D#", "Eb"],
+    7: ["D#", "Eb", "Fbb"],
     8: ["Dx", "E", "Fb"],
     9: ["E#", "F", "Gbb"],
     10: ["Ex", "F#", "Gb"],
@@ -18,7 +18,7 @@ ALL_PITCHES = {
 VALID_PITCHES_LOWER = [pitch.lower() for pitch_list in ALL_PITCHES.values() for pitch in pitch_list]
 
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
-INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8, "m7": 10, "M7": 11, }
+INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8, "6": 9, "bb7": 9, "m7": 10, "M7": 11, }
 QUALITIES = {  # Values are list of half step intervals above a root
     "major": ["M3", "P5"], 
     "minor": ["m3", "P5"], 
@@ -26,7 +26,8 @@ QUALITIES = {  # Values are list of half step intervals above a root
     "major 7": ["M3", "P5", "M7"],
     "minor 7": ["m3", "P5", "m7"],
     "dominant 7": ["M3", "P5", "m7"],
-    "half diminished": ["m3", "b5", "m7"]
+    "half diminished": ["m3", "b5", "m7"],
+    "diminished 7": ["m3", "b5", "bb7"]
 }
 VALID_QUALITIES = QUALITIES.keys() # ["major", "minor", etc.]
 VALID_PRETTY_QUALITIES = ", ".join(["'{}'".format(quality) for quality in VALID_QUALITIES]) # "'major', 'minor', etc."
@@ -195,12 +196,15 @@ class Arpeggio(object):
             if note.pitch_value == self.root.pitch_value: # Enharmonic for the root will not be reassigned.
                 pass
             else:
-                 primary_pitch = MUSICAL_ALPHABET[(((root_primary_pitch_index + int(QUALITIES[self.quality][i][1])) - 1) % 7)]
-                 for enharmonic in note.enharmonics_list:
+                try:
+                    primary_pitch = MUSICAL_ALPHABET[(((root_primary_pitch_index + int(QUALITIES[self.quality][i][1])) - 1) % 7)]
+                except ValueError:
+                    primary_pitch = MUSICAL_ALPHABET[(((root_primary_pitch_index + int(QUALITIES[self.quality][i][2])) - 1) % 7)]
+                for enharmonic in note.enharmonics_list:
                     if enharmonic.startswith(primary_pitch):
                         note.preferred_enharmonic_index = note.enharmonics_list.index(enharmonic)
                         break # There is only one correct enharmonic per note. No further looping required.
-                 i += 1
+                i += 1
 
     def get_notes_string(self): # "D, F#, A"
         return ", ".join([note.get_string() for note in self.notes])

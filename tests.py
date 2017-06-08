@@ -53,5 +53,15 @@ class AssignEnharmonicTests(unittest.TestCase):
         note = a.notes[2]
         self.assertEqual(note.enharmonics_list[note.preferred_enharmonic_index], "F")
 
+    def test_Fb_m3(self):
+        a = Arpeggio(Note(8, 2), "diminished") # Root: "Fb", chord: diminished.
+        note = a.notes[1]
+        self.assertEqual(note.enharmonics_list[note.preferred_enharmonic_index], "Abb")
+
+    def test_Fb_b5(self):
+        a = Arpeggio(Note(8, 2), "diminished") # Root: "Fb", chord: diminished.
+        note = a.notes[2]
+        self.assertEqual(note.enharmonics_list[note.preferred_enharmonic_index], "Cbb")
+
 if __name__ == "__main__":
     unittest.main()

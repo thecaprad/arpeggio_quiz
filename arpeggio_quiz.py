@@ -191,15 +191,20 @@ class Arpeggio(object):
         the arpeggio relative to the root.
         """
         i = 0
-        root_primary_pitch_index = MUSICAL_ALPHABET.index(self.root.get_string()[0])
+        root_primary_pitch_index = MUSICAL_ALPHABET.index(self.root.get_string()[0]) # The primary pitch of "Bb" is "B", "F#" is "F", etc.
+        """
+        In `MUSICAL_ALPHABET`, "A"'s index is 0, "B"'s is 1, etc. 
+        This index helps to calculate what the next interval's primary pitch should be. 
+        """
         for note in self.notes:
             if note.pitch_value == self.root.pitch_value: # Enharmonic for the root will not be reassigned.
                 pass
             else:
                 try:
-                    primary_pitch = MUSICAL_ALPHABET[(((root_primary_pitch_index + int(QUALITIES[self.quality][i][1])) - 1) % 7)]
+                    next_primary_pitch_index = int(QUALITIES[self.quality][i][1])
                 except ValueError:
-                    primary_pitch = MUSICAL_ALPHABET[(((root_primary_pitch_index + int(QUALITIES[self.quality][i][2])) - 1) % 7)]
+                    next_primary_pitch_index = int(QUALITIES[self.quality][i][2]) # This catches double flat ("bb7") spellings.
+                primary_pitch = MUSICAL_ALPHABET[(((root_primary_pitch_index + next_primary_pitch_index) - 1) % 7)]
                 for enharmonic in note.enharmonics_list:
                     if enharmonic.startswith(primary_pitch):
                         note.preferred_enharmonic_index = note.enharmonics_list.index(enharmonic)

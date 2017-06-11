@@ -14,7 +14,6 @@ ALL_PITCHES_DICT = {
     11: ["Fx", "G", "Abb"],
     12: ["G#", "Ab"]
 }
-
 VALID_PITCHES_LOWER = [pitch.lower() for pitch_list in ALL_PITCHES_DICT.values() for pitch in pitch_list] # Is a list of all values in ALL_PITCHES_DICT. Requires double list comprehension.
 
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
@@ -41,6 +40,15 @@ VALID_QUALITY_ALIASES_MAP = {
     "half diminished": ["half diminished", "half dim", "m7b5", "m7(b5)", "-7b5", "-7(b5)"]
 }
 ALL_VALID_QUALITY_ALIASES = [alias for quality_list in VALID_QUALITY_ALIASES_MAP.values() for alias in quality_list] # ["major", "maj", "diminished", "dim", etc.]
+ORDERED_QUALITIES = [ # Presents all valid qualities in an order that increases in complexity.
+    "major",
+    "minor",
+    "diminished",
+    "major 7",
+    "minor 7",
+    "dominant 7",
+    "half diminished"
+]
 QUIT_STR = "(Type 'quit' at any time to stop.)"
 
 def get_random_note():
@@ -78,7 +86,7 @@ def get_selected_qualities_list():
     Returns a list of selected qualities. ["major" "diminished"]
     """
     # Used in `spelling_quiz()` to practice spelling a specific quality arpeggio, like "minor".
-    valid_spelling_quiz_qualities_dict = dict(enumerate(VALID_QUALITIES, 1)) # {1: 'major', 2: 'diminished', etc.}
+    valid_spelling_quiz_qualities_dict = dict(enumerate(ORDERED_QUALITIES, 1)) # {1: 'major', 2: 'diminished', etc.}
     for number, quality in valid_spelling_quiz_qualities_dict.items():
         print("'{}' = {}".format(number, quality)) 
     try:

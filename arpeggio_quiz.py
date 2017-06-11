@@ -1,6 +1,6 @@
 import random
 
-ALL_PITCHES = {
+ALL_PITCHES_DICT = {
     1: ["Gx", "A", "Bbb"],
     2: ["A#", "Bb", "Cbb"],
     3: ["Ax", "B", "Cb"],
@@ -15,7 +15,7 @@ ALL_PITCHES = {
     12: ["G#", "Ab"]
 }
 
-VALID_PITCHES_LOWER = [pitch.lower() for pitch_list in ALL_PITCHES.values() for pitch in pitch_list]
+VALID_PITCHES_LOWER = [pitch.lower() for pitch_list in ALL_PITCHES_DICT.values() for pitch in pitch_list] # Is a list of all values in ALL_PITCHES_DICT. Requires double list comprehension.
 
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
 INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8, "6": 9, "bb7": 9, "m7": 10, "M7": 11, }
@@ -44,7 +44,7 @@ ALL_VALID_QUALITY_ALIASES = [alias for quality_list in VALID_QUALITY_ALIASES_MAP
 QUIT_STR = "(Type 'quit' at any time to stop.)"
 
 def get_random_note():
-    return Note(random.choice(ALL_PITCHES.keys()))
+    return Note(random.choice(ALL_PITCHES_DICT.keys()))
 
 def get_random_quality():
     return random.choice(VALID_QUALITIES)
@@ -141,7 +141,7 @@ def spelling_quiz(arpeggio):
 class Note(object):
     def __init__(self, pitch_value, preferred_enharmonic_index=None):
         self.pitch_value = pitch_value
-        self.enharmonics_list = ALL_PITCHES[self.pitch_value]
+        self.enharmonics_list = ALL_PITCHES_DICT[self.pitch_value]
         if preferred_enharmonic_index == None:
             self.preferred_enharmonic_index = self.get_biased_index() # Int representing an index for enharmonics_list.
         else:

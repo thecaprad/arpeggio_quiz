@@ -15,7 +15,6 @@ ALL_PITCHES_DICT = {
     12: ["G#", "Ab"]
 }
 VALID_PITCHES_LOWER = [pitch.lower() for pitch_list in ALL_PITCHES_DICT.values() for pitch in pitch_list] # Is a list of all values in ALL_PITCHES_DICT. Requires double list comprehension.
-
 MUSICAL_ALPHABET = ["A", "B", "C", "D", "E", "F", "G"]
 INTERVALS = {"m3": 3, "M3": 4, "b5": 6, "P5": 7, "#5": 8, "6": 9, "bb7": 9, "m7": 10, "M7": 11, }
 QUALITIES = {  # Values are list of half step intervals above a root

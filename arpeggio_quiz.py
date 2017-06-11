@@ -111,7 +111,7 @@ def print_selected_qualities(selected_qualities_list):
 
 def run_quiz_prompt(quiz_function):
     # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
-    selected_quality = None # None will generate a random arpeggio.
+    selected_qualities = None # None will generate a random arpeggio.
     if quiz_function == spelling_quiz:
         selected_qualities = get_selected_qualities_list()
         print_selected_qualities(selected_qualities)

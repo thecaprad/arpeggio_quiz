@@ -87,10 +87,11 @@ def get_selected_qualities_list():
     Prompts the user with every available quality from `VALID_QUALITIES` (e.g., "1 = 'major', 2 = 'minor', etc.)
     Returns a list of selected qualities. ["major" "diminished"]
     """
-    # Used in `spelling_quiz()` to practice spelling a specific quality arpeggio, like "minor".
+    # Used to practice spelling specific arpeggios of a specific quality, like "minor", "minor and diminished", etc.
     valid_spelling_quiz_qualities_dict = dict(enumerate(ORDERED_QUALITIES, 1)) # {1: 'major', 2: 'diminished', etc.}
     for number, quality in valid_spelling_quiz_qualities_dict.items():
-        print("'{}' = {}".format(number, quality)) 
+        print("'{}' = {}".format(number, quality))
+    print
     try:
         selected_quality_indexes = raw_input("Enter the numbers (separated by a comma) for the qualities you'd like to practice, or type any other key for random: ")
         result = []
@@ -111,9 +112,8 @@ def print_selected_qualities(selected_qualities_list):
 def run_quiz_prompt(quiz_function):
     # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
     selected_qualities = None # None will generate a random arpeggio.
-    if quiz_function == spelling_quiz:
-        selected_qualities = get_selected_qualities_list()
-        print_selected_qualities(selected_qualities)
+    selected_qualities = get_selected_qualities_list()
+    print_selected_qualities(selected_qualities)
     while 1:
         arpeggio = get_random_arpeggio(selected_qualities)
         answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())

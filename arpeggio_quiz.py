@@ -35,10 +35,11 @@ VALID_QUALITY_ALIASES_MAP = {
     "minor": ["minor", "min"],
     "diminished": ["diminished", "dim"],
     "augmented": ["augmented", "aug", "+"],
-    "major 7": ["major 7", "maj7", "maj 7", "M7", "major seventh"],
-    "minor 7": ["minor 7", "min7", "min 7", "m7", "-7", "minor seventh"],
-    "dominant 7": ["dominant 7", "dominant", "dom 7", "dom7", "7", "dom", "seventh", "dominant seventh"],
-    "half diminished": ["half diminished", "half dim", "m7b5", "m7(b5)", "-7b5", "-7(b5)"]
+    "major 7": ["major 7", "maj7", "maj 7", "M7", "major seventh", "major seven"],
+    "minor 7": ["minor 7", "min7", "min 7", "m7", "-7", "minor seventh", "minor seven"],
+    "dominant 7": ["dominant 7", "dominant", "dom 7", "dom7", "7", "dom", "seventh", "dominant seventh", "dominant seven"],
+    "half diminished": ["half diminished", "half dim", "m7b5", "m7(b5)", "-7b5", "-7(b5)", "minor seven flat five", "minor 7 flat 5"],
+    "diminished 7": ["diminished 7", "dim 7", "o7", "diminished seven", "diminished, seventh", "dim seven", "dim seventh" ]
 }
 ALL_VALID_QUALITY_ALIASES = [alias for quality_list in VALID_QUALITY_ALIASES_MAP.values() for alias in quality_list] # ["major", "maj", "diminished", "dim", etc.]
 ORDERED_QUALITIES = [ # Presents all valid qualities in an order that increases in complexity.

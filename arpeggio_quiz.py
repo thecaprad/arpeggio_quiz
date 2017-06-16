@@ -35,9 +35,9 @@ VALID_QUALITY_ALIASES_MAP = {
     "minor": ["minor", "min"],
     "diminished": ["diminished", "dim"],
     "augmented": ["augmented", "aug", "+"],
-    "major 7": ["major 7", "maj7", "maj 7", "M7"],
-    "minor 7": ["minor 7", "min7", "min 7", "m7", "-7"],
-    "dominant 7": ["dominant 7", "dominant", "dom 7", "dom7", "7", "dom"],
+    "major 7": ["major 7", "maj7", "maj 7", "M7", "major seventh"],
+    "minor 7": ["minor 7", "min7", "min 7", "m7", "-7", "minor seventh"],
+    "dominant 7": ["dominant 7", "dominant", "dom 7", "dom7", "7", "dom", "seventh", "dominant seventh"],
     "half diminished": ["half diminished", "half dim", "m7b5", "m7(b5)", "-7b5", "-7(b5)"]
 }
 ALL_VALID_QUALITY_ALIASES = [alias for quality_list in VALID_QUALITY_ALIASES_MAP.values() for alias in quality_list] # ["major", "maj", "diminished", "dim", etc.]

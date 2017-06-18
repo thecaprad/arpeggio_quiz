@@ -110,13 +110,10 @@ def print_selected_qualities(selected_qualities_list):
         print("{} random".format(selected_string))
     print
 
-def run_quiz_prompt(quiz_function):
-    # Runs interactive quiz prompt given either "identification_quiz" or "spelling_quiz".
-    selected_qualities = None # None will generate a random arpeggio.
-    selected_qualities = get_selected_qualities_list()
-    print_selected_qualities(selected_qualities)
+def run_quiz_prompt(selected_qualities_list, quiz_function):
+    print_selected_qualities(selected_qualities_list)
     while 1:
-        arpeggio = get_random_arpeggio(selected_qualities)
+        arpeggio = get_random_arpeggio(selected_qualities_list)
         answer_string = "{} is spelled '{}.'".format(arpeggio.get_name_string(), arpeggio.get_notes_string())
         result = quiz_function(arpeggio)
         if result:
@@ -230,7 +227,11 @@ class Arpeggio(object):
 
 if __name__ == "__main__":
     try:
-        run_quiz_prompt(select_quiz())
+        print
+        selected_qualities = get_selected_qualities_list()
+        print
+        print_selected_qualities(selected_qualities)
+        run_quiz_prompt(selected_qualities, select_quiz())
     except (KeyboardInterrupt, EOFError):
         print
         pass

@@ -42,7 +42,8 @@ VALID_QUALITY_ALIASES_MAP = {
     "diminished 7": ["diminished 7", "dim 7", "o7", "diminished seven", "diminished, seventh", "dim seven", "dim seventh" ]
 }
 ALL_VALID_QUALITY_ALIASES = [alias for quality_list in VALID_QUALITY_ALIASES_MAP.values() for alias in quality_list] # ["major", "maj", "diminished", "dim", etc.]
-ORDERED_QUALITIES = [ # Presents all valid qualities in an order that increases in complexity.
+# All valid qualities in an order that increases in complexity.
+ORDERED_QUALITIES = [
     "major",
     "minor",
     "diminished",
@@ -62,8 +63,10 @@ def get_random_quality():
 
 def get_random_arpeggio(quality=None):
     """
-    Takes a list of possible arpeggio qualities (e.g., ["major", "minor"], and returns a random Arpeggio object with a quality from the possible list.
-    If no quality is given, an Arpeggio object is returned with its quality randomly selected from `VALID_QUALITIES`.
+    Takes a list of possible arpeggio qualities (e.g., ["major", "minor"], 
+    and returns a random Arpeggio object with a quality from the possible list.
+    If no quality is given, an Arpeggio object is returned with its quality 
+    randomly selected from `VALID_QUALITIES`.
     """
     if not quality:
         quality = [get_random_quality()]

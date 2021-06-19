@@ -55,9 +55,10 @@ const musicalAlphabet = ["A", "B", "C", "D", "E", "F", "G"]
 
 // Musical intervals mapped to the number of half-steps they represent.
 // E.g., Major third interval = 4 half-steps.
-const intervals = {
+const intervalValues = {
     "m3": 3, 
-    "M3": 4, 
+    "M3": 4,
+    "P4": 5,
     "b5": 6, 
     "P5": 7, 
     "#5": 8, 
@@ -79,6 +80,44 @@ class Note {
         this.preferredEnharmonic = this.enharmonicList.filter(function(enharmonic) {
             return enharmonic.startsWith(cleanRootString(primaryPitch));
         })[0];
+    }
+}
+
+class Arpeggio {
+    constructor(root, quality) {
+        this.quality = quality;
+        this.notes = this.buildArpeggio(root, quality);
+        // this.buildArpeggio(root, quality);
+    }
+
+    buildArpeggio(root, quality) {
+        const intervals = chordQualitySpellings[quality];
+        let result = [root];
+        intervals.forEach(function(interval) {
+            // Determine next pitch value
+            if (root.pitchValue + intervalValues[interval] > 12) {
+                var nextPitchValue = (root.pitchValue + intervalValues[interval]) % 12;
+            } else {
+                var nextPitchValue = root.pitchValue + intervalValues[interval];
+            }
+            console.log(nextPitchValue);
+
+            // Determine next primary note
+            var rootIndex = musicalAlphabet.indexOf(root.preferredEnharmonic[0]);
+            var intervalInt = parseInt(interval[1]);
+
+            if (rootIndex + (intervalInt - 1) < 7) {
+                var nextPrimaryPitch = musicalAlphabet[rootIndex + (intervalInt - 1)];
+            } else {
+                var dec = 6 - rootIndex;
+                var remainingInt = intervalInt - dec;
+                var nextPrimaryPitch = musicalAlphabet[remainingInt - 2];
+            }
+            console.log(nextPrimaryPitch);
+
+            result.push(new Note(nextPitchValue, nextPrimaryPitch));
+        })
+        return result;
     }
 }
 

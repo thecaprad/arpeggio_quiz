@@ -115,8 +115,10 @@ class Arpeggio {
             if (rootIndex + (intervalInt - 1) < 7) {
                 var nextPrimaryPitch = musicalAlphabet[rootIndex + (intervalInt - 1)];
             } else {
-                var dec = 6 - rootIndex;
-                var remainder = intervalInt - dec;
+                // Fancy logic for calculating when the next pitch is beyond
+                // the 'end' of the musical alphabet.
+                // E.g., calculating a perfect fifth from F --> C.
+                var remainder = intervalInt - (6 - rootIndex);
                 var nextPrimaryPitch = musicalAlphabet[remainder - 2];
             }
             result.push(new Note(nextPitchValue, nextPrimaryPitch));
@@ -150,7 +152,16 @@ function cleanRootString(root) {
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('chordSubmit').addEventListener('click', function() {
         const root = cleanRootString(document.getElementById('root').value);
-        const note = new Note(pitchIndex[root], root[0]);
-        console.log(note);
+        let quality = null;
+        var qualityRadios = document.getElementsByName('quality');
+            qualityRadios.forEach(function(radio) {
+                if (radio.checked) {
+                    quality = radio.value;
+                }
+            })
+        var rootStr = cleanRootString(root);
+        var rootNote = new Note(pitchIndex[rootStr], rootStr);
+        var arp = new Arpeggio(rootNote, quality);
+        console.log(arp);
     })
 });

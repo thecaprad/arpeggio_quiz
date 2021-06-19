@@ -6,9 +6,24 @@
         <title>Arpeggio quiz</title>
     </head>
     <body>
-        <h1>What is the root of your chord?</h1>
-        <label for="root">Root note:</label>
-        <input id="root"></input>
+        <h1>What chord do you want to spell?</h1>
+        <label for="root">Root:</label>
+        <input type="text" id="root" value="E"></input>
+        <ul>
+            <li>
+                <label for="major">Major</label>
+                <input type="radio" id="major" value="major" name="quality" checked></body>
+            </li>
+            <li>
+                <label for="major">Minor</label>
+                <input type="radio" id="minor" value="minor" name="quality"></body>
+            </li>
+            <li>
+                <label for="major">Diminished</label>
+                <input type="radio" id="diminished" value="diminished" name="quality"></body>
+            </li>
+        </ul>
+
         <button id="chordSubmit">Submit</button>
     </body>
 </html>

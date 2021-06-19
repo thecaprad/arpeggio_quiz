@@ -87,34 +87,38 @@ class Arpeggio {
     constructor(root, quality) {
         this.quality = quality;
         this.notes = this.buildArpeggio(root, quality);
-        // this.buildArpeggio(root, quality);
     }
 
     buildArpeggio(root, quality) {
+        // Given a root note object and interval string, returns a list of Note
+        // objects for a given arpeggio.
+        // E.g., buildArpeggio(E Note, 'major') --> [E Note, G# Note, B Note].
         const intervals = chordQualitySpellings[quality];
         let result = [root];
+        // Cycles through intervals in the chord quality to calculate 
+        // next Note objects. Each Note needs a pitch value and primary pitch.
+        // The calculation of the next interval is always relative to the root.
         intervals.forEach(function(interval) {
-            // Determine next pitch value
-            if (root.pitchValue + intervalValues[interval] > 12) {
-                var nextPitchValue = (root.pitchValue + intervalValues[interval]) % 12;
+            // Determines next pitch value.
+            var rootValuePlusIntervalValue = root.pitchValue + intervalValues[interval];
+            if (rootValuePlusIntervalValue > 12) {
+                var nextPitchValue = (rootValuePlusIntervalValue) % 12;
             } else {
-                var nextPitchValue = root.pitchValue + intervalValues[interval];
+                var nextPitchValue = rootValuePlusIntervalValue;
             }
-            console.log(nextPitchValue);
-
-            // Determine next primary note
+            // Determines next primary note so that the correct enharmonic
+            // is used. 
+            // "A#" --> 2.
             var rootIndex = musicalAlphabet.indexOf(root.preferredEnharmonic[0]);
+            // "M3" --> 3, "P5" --> 5, "M7" --> 7.
             var intervalInt = parseInt(interval[1]);
-
             if (rootIndex + (intervalInt - 1) < 7) {
                 var nextPrimaryPitch = musicalAlphabet[rootIndex + (intervalInt - 1)];
             } else {
                 var dec = 6 - rootIndex;
-                var remainingInt = intervalInt - dec;
-                var nextPrimaryPitch = musicalAlphabet[remainingInt - 2];
+                var remainder = intervalInt - dec;
+                var nextPrimaryPitch = musicalAlphabet[remainder - 2];
             }
-            console.log(nextPrimaryPitch);
-
             result.push(new Note(nextPitchValue, nextPrimaryPitch));
         })
         return result;

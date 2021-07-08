@@ -74,12 +74,30 @@ class Note {
     // preferred starting note of an enharmonic.
     // E.g., the primaryPitch of "Bb" is "B." For "A#" it's "A."
 
-    constructor(pitchValue, primaryPitch) {
+    constructor(pitchValue=this.getRandomPitch(), primaryPitch=null) {
         this.pitchValue = pitchValue;
         this.enharmonicList = allPitchesDict[pitchValue];
-        this.preferredEnharmonic = this.enharmonicList.filter(function(enharmonic) {
-            return enharmonic.startsWith(cleanRootString(primaryPitch));
-        })[0];
+        if (!primaryPitch) {
+            this.preferredEnharmonic = this.getBiasedEnharmonic(this.enharmonicList);
+            this.primaryPitch = this.preferredEnharmonic.charAt(0);
+        } else {
+            this.primaryPitch = primaryPitch;
+            this.preferredEnharmonic = this.enharmonicList.filter(function(enharmonic) {
+                return enharmonic.startsWith(this.primaryPitch);
+            }, this)[0];
+        }
+    }
+
+    getRandomPitch() {
+        return Math.floor((Math.random() * 12) + 1);
+    }
+
+    getBiasedEnharmonic(enharmonicList) {
+        let result = null;
+        while (!result || result.length == 3 || result.slice(-1) == "x") {
+            result = this.enharmonicList[Math.floor(Math.random() * this.enharmonicList.length)];
+        }
+        return result;
     }
 }
 

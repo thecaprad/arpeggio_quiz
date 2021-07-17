@@ -68,6 +68,18 @@ const intervalValues = {
     "M7": 11,
 }
 
+const chordQualityAliasesMap = {
+    "major": ["major", "maj"],
+    "minor": ["minor", "min"],
+    "diminished": ["diminished", "dim"],
+    "augmented": ["augmented", "aug", "+"],
+    "major 7": ["major 7", "maj7", "maj 7", "M7", "major seventh", "major seven"],
+    "minor 7": ["minor 7", "min7", "min 7", "m7", "-7", "minor seventh", "minor seven"],
+    "dominant 7": ["dominant 7", "dominant", "dom 7", "dom7", "7", "dom", "seventh", "dominant seventh", "dominant seven"],
+    "half diminished": ["half diminished", "half dim", "m7b5", "m7(b5)", "-7b5", "-7(b5)", "minor seven flat five", "minor 7 flat 5"],
+    "diminished 7": ["diminished 7", "dim 7", "o7", "diminished seven", "diminished, seventh", "dim seven", "dim seventh" ]
+}
+
 class Note {
     // Takes a pitch value (as relates to allPitchesDict keys) and a 
     // primaryPitch string. A primaryPitch is a one-character string specifying the 
@@ -165,6 +177,13 @@ function cleanRootString(root) {
     // TODO: Consider making this return only the first character.
         // Are subsequent characters ever used?
     return root.charAt(0).toUpperCase() + root.slice(1).toLowerCase();
+}
+
+function validateQuality(inputQuality, actualQuality) {
+    if (chordQualityAliasesMap[actualQuality].includes(inputQuality)) {
+        return actualQuality;
+    }
+    return false;
 }
 
 document.addEventListener('DOMContentLoaded', function() {

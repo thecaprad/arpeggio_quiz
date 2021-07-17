@@ -80,6 +80,21 @@ const chordQualityAliasesMap = {
     "diminished 7": ["diminished 7", "dim 7", "o7", "diminished seven", "diminished, seventh", "dim seven", "dim seventh" ]
 }
 
+// Instructions on how to spell common chord qualities.
+// Given interval spellings are individually relative the root.
+// E.g., major chords are spelled root + M3 + P5 (major third + perfect fifth).
+const chordQualitySpellings = {
+    "major": ["M3", "P5"], 
+    "minor": ["m3", "P5"], 
+    "diminished": ["m3", "b5"],
+    "augmented": ["M3", "#5"],
+    "major 7": ["M3", "P5", "M7"],
+    "minor 7": ["m3", "P5", "m7"],
+    "dominant 7": ["M3", "P5", "m7"],
+    "half diminished": ["m3", "b5", "m7"],
+    "diminished 7": ["m3", "b5", "bb7"]
+}
+
 class Note {
     // Takes a pitch value (as relates to allPitchesDict keys) and a 
     // primaryPitch string. A primaryPitch is a one-character string specifying the 
@@ -155,21 +170,6 @@ class Arpeggio {
         })
         return result;
     }
-}
-
-// Instructions on how to spell common chord qualities.
-// Given interval spellings are individually relative the root.
-// E.g., major chords are spelled root + M3 + P5 (major third + perfect fifth).
-const chordQualitySpellings = {
-    "major": ["M3", "P5"], 
-    "minor": ["m3", "P5"], 
-    "diminished": ["m3", "b5"],
-    "augmented": ["M3", "#5"],
-    "major 7": ["M3", "P5", "M7"],
-    "minor 7": ["m3", "P5", "m7"],
-    "dominant 7": ["M3", "P5", "m7"],
-    "half diminished": ["m3", "b5", "m7"],
-    "diminished 7": ["m3", "b5", "bb7"]
 }
 
 function cleanRootString(root) {

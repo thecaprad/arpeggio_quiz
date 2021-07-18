@@ -187,8 +187,8 @@ function validateQuality(inputQuality, actualQuality) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('chordSubmit').addEventListener('click', function() {
-        const root = cleanRootString(document.getElementById('root').value);
+    document.getElementById('generateChord').addEventListener('click', function() {
+        document.getElementById('arpeggio').innerHTML = "";
         let quality = null;
         var qualityRadios = document.getElementsByName('quality');
             qualityRadios.forEach(function(radio) {
@@ -196,9 +196,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     quality = radio.value;
                 }
             })
-        var rootStr = cleanRootString(root);
-        var rootNote = new Note(pitchIndex[rootStr], rootStr);
-        var arp = new Arpeggio(rootNote, quality);
-        console.log(arp);
+        var arp = new Arpeggio(new Note(), quality);
+        arp.notes.forEach(function(note) {
+            document.getElementById('arpeggio').innerHTML += `
+                ${note.preferredEnharmonic}
+            `;
+        })
+
     })
 });

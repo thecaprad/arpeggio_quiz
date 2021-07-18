@@ -193,7 +193,12 @@ document.addEventListener('DOMContentLoaded', function() {
         var qualityRadios = document.getElementsByName('quality');
             qualityRadios.forEach(function(radio) {
                 if (radio.checked) {
-                    quality = radio.value;
+                    if(radio.value == "random") {
+                        validQualities = Object.keys(chordQualityAliasesMap);
+                        quality = validQualities[Math.floor(Math.random() * validQualities.length)];
+                    } else {
+                        quality = radio.value;
+                    }
                 }
             })
         var arp = new Arpeggio(new Note(), quality);

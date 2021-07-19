@@ -1,3 +1,5 @@
+let ARPEGGIO = null;
+
 const allPitchesDict = {
     1: ["Gx", "A", "Bbb"],
     2: ["A#", "Bb", "Cbb"],
@@ -174,14 +176,19 @@ class Arpeggio {
 
 function cleanRootString(root) {
     // "ABB" --> "Abb", "c#" --> "C#", "f" ->"F".
-    // TODO: Consider making this return only the first character.
-        // Are subsequent characters ever used?
     return root.charAt(0).toUpperCase() + root.slice(1).toLowerCase();
 }
 
-function validateQuality(inputQuality, actualQuality) {
-    if (chordQualityAliasesMap[actualQuality].includes(inputQuality)) {
-        return actualQuality;
+function validateRoot(inputRoot) {
+    if (cleanRootString(inputRoot) == ARPEGGIO.notes[0].preferredEnharmonic) {
+        return ARPEGGIO.notes[0].preferredEnharmonic;
+    }
+    return false;
+}
+
+function validateQuality(inputQuality) {
+    if (chordQualityAliasesMap[ARPEGGIO.quality].includes(inputQuality.toLowerCase())) {
+        return ARPEGGIO.quality;
     }
     return false;
 }
@@ -201,12 +208,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             })
-        var arp = new Arpeggio(new Note(), quality);
-        arp.notes.forEach(function(note) {
+        ARPEGGIO = new Arpeggio(new Note(), quality);
+        ARPEGGIO.notes.forEach(function(note) {
             document.getElementById('arpeggio').innerHTML += `
                 ${note.preferredEnharmonic}
             `;
         })
+    })
 
+    document.getElementById('answerButton').addEventListener('click', function() {
+        var raw = document.getElementById('answer').value;
+        var rawRoot = raw.split(" ")[0];
+        var rawQuality = raw.split(" ")[1];
+        if (validateRoot(rawRoot) && validateQuality(rawQuality)) {
+            console.log('Correct');
+        }
     })
 });

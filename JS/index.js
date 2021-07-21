@@ -217,9 +217,11 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     document.getElementById('answerButton').addEventListener('click', function() {
-        var raw = document.getElementById('answer').value;
-        var rawRoot = raw.split(" ")[0];
-        var rawQuality = raw.split(" ")[1];
+        // TODO add way to catch input without spaces (e.g., Ebm7).
+        var rawSplit = document.getElementById('answer').value.split(" "); 
+        var rawRoot = rawSplit[0];
+        // Catches qualities over multiple spaces like "minor 7."
+        var rawQuality = rawSplit.slice(1).join(" ");
         if (validateRoot(rawRoot) && validateQuality(rawQuality)) {
             console.log('Correct');
         }

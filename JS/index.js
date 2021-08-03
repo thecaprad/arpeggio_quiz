@@ -15,43 +15,14 @@ const allPitchesDict = {
     12: ["G#", "Ab"]
 }
 
-// TODO: Can this be accomplished more simply with a zip of sorts?
-const pitchIndex = {
-    "Gx": 1,
-    "A": 1,
-    "Bbb": 1,
-    "A#": 2, 
-    "Bb": 2, 
-    "Cbb": 2,
-    "Ax": 3,
-    "B": 3,
-    "Cb": 3,
-    "B#": 4,
-    "C": 4,
-    "Dbb": 4,
-    "C#": 5,
-    "Db": 5,
-    "Cx": 6,
-    "D": 6,
-    "Ebb": 6,
-    "D#": 7,
-    "Eb": 7,
-    "Fbb": 7,
-    "Dx": 8,
-    "E": 8,
-    "Fb": 8,
-    "E#": 9,
-    "F": 9,
-    "Gbb": 9,
-    "Ex": 10,
-    "F#": 10,
-    "Gb": 10,
-    "Fx": 11,
-    "G": 11,
-    "Abb": 11,
-    "G#": 12,
-    "Ab": 12
-}
+// {"Gx": 1, "A": 1, "Bbb": 1, "A#": 2, etc.} 
+const pitchIndexLookup = {};
+
+Object.entries(allPitchesDict).forEach(function(pitchMap) {
+    pitchMap[1].forEach(function(enharmonic) {
+        pitchIndexLookup[enharmonic] = pitchMap[0];
+    })
+})
 
 const musicalAlphabet = ["A", "B", "C", "D", "E", "F", "G"]
 

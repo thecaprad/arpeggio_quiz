@@ -13,7 +13,7 @@ const allPitchesDict = {
     10: ["Ex", "F#", "Gb"],
     11: ["Fx", "G", "Abb"],
     12: ["G#", "Ab"]
-}
+};
 
 // {"Gx": 1, "A": 1, "Bbb": 1, "A#": 2, etc.} 
 const pitchIndexLookup = {};
@@ -25,7 +25,7 @@ Object.entries(allPitchesDict).forEach(function(pitchMap) {
     })
 })
 
-const musicalAlphabet = ["A", "B", "C", "D", "E", "F", "G"]
+const musicalAlphabet = ["A", "B", "C", "D", "E", "F", "G"];
 
 // Musical intervals mapped to the number of half-steps they represent.
 // E.g., Major third interval = 4 half-steps.
@@ -40,7 +40,7 @@ const intervalValues = {
     "bb7": 9, 
     "m7": 10, 
     "M7": 11,
-}
+};
 
 const chordQualityAliasesMap = {
     "major": ["major", "maj"],
@@ -52,7 +52,7 @@ const chordQualityAliasesMap = {
     "dominant 7": ["dominant 7", "dominant", "dom 7", "dom7", "7", "dom", "seventh", "dominant seventh", "dominant seven"],
     "half diminished": ["half diminished", "half dim", "m7b5", "m7(b5)", "-7b5", "-7(b5)", "minor seven flat five", "minor 7 flat 5"],
     "diminished 7": ["diminished 7", "dim 7", "o7", "diminished seven", "diminished, seventh", "dim seven", "dim seventh" ]
-}
+};
 
 // Instructions on how to spell common chord qualities.
 // Given interval spellings are individually relative the root.
@@ -67,7 +67,7 @@ const chordQualitySpellings = {
     "dominant 7": ["M3", "P5", "m7"],
     "half diminished": ["m3", "b5", "m7"],
     "diminished 7": ["m3", "b5", "bb7"]
-}
+};
 
 class Note {
     // Takes a pitch value (as relates to allPitchesDict keys) and a 

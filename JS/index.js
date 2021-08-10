@@ -18,6 +18,7 @@ const allPitchesDict = {
 // {"Gx": 1, "A": 1, "Bbb": 1, "A#": 2, etc.} 
 const pitchIndexLookup = {};
 
+// Creates the above dictionary.
 Object.entries(allPitchesDict).forEach(function(pitchMap) {
     pitchMap[1].forEach(function(enharmonic) {
         pitchIndexLookup[enharmonic] = pitchMap[0];

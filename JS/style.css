@@ -1,0 +1,51 @@
+h1 {
+    font-family: 'Old Standard TT', serif;
+    font-size: 3em;
+    font-weight: 400;
+    text-align: center;
+}
+
+p {
+    font-family: 'Old Standard TT', serif;
+}
+
+nav {
+    width: 40%;
+    height: 50px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+nav p {
+    width: 40%;
+    display: inline-block;
+}
+
+nav ul {
+    width: 40%;
+    display: inline-block;
+    padding: 0;
+}
+
+nav ul li {
+    width: 40%;
+    display: inline-block;
+    padding-inline: 3%;
+}
+
+a {
+    padding: 14px 16px;
+}
+
+#qualities {
+    position: absolute;
+    display: none;
+    text-align: left;
+}
+
+#qualities li {
+    display: block;
+    position: relative;
+    padding: 14px 16px;
+    z-index: 1;
+}

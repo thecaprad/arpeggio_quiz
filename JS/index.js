@@ -166,20 +166,26 @@ function validateQuality(inputQuality) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('specific').addEventListener('click', function() {
+        document.getElementById('qualities').style.display = "block";
+    });
+
     document.getElementById('generateChord').addEventListener('click', function() {
         document.getElementById('arpeggio').innerHTML = "";
-        let quality = null;
-        var qualityRadios = document.getElementsByName('quality');
-            qualityRadios.forEach(function(radio) {
-                if (radio.checked) {
-                    if(radio.value == "random") {
-                        validQualities = Object.keys(chordQualityAliasesMap);
-                        quality = validQualities[Math.floor(Math.random() * validQualities.length)];
-                    } else {
-                        quality = radio.value;
-                    }
+        let checkedQualities = [];
+        var qualityCheckboxes = document.getElementsByName('quality');
+            qualityCheckboxes.forEach(function(quality) {
+                if (quality.checked) {
+                    checkedQualities.push(quality);
                 }
             })
+        if (checkedQualities.length != 0) {
+            // Select a random quality from selected qualities.
+            var quality = checkedQualities[Math.floor(Math.random() * checkedQualities.length)].value;
+        } else {
+            // When no quality is selected, quality will be random.
+            var quality = qualityCheckboxes[Math.floor(Math.random() * qualityCheckboxes.length)].value;
+        }
         ARPEGGIO = new Arpeggio(new Note(), quality);
         ARPEGGIO.notes.forEach(function(note) {
             document.getElementById('arpeggio').innerHTML += `

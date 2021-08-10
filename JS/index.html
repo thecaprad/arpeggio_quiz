@@ -3,54 +3,65 @@
     <head>
         <meta charset="UTF-8">
         <script src="index.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT&display=swap" rel="stylesheet">
+        <link rel="stylesheet" text="text/css" href="style.css">
         <title>Arpeggio quiz</title>
     </head>
     <body>
-        <h1>What chord do you want to spell?</h1>
-        <div id="arpeggio"></div>
-        <ul>
-            <li>
-                <label for="random">Random</label>
-                <input type="radio" id="random" value="random" name="quality" checked></body>
-            </li
-            <li>
-                <label for="major">Major</label>
-                <input type="radio" id="major" value="major" name="quality" checked></body>
-            </li>
-            <li>
-                <label for="major">Minor</label>
-                <input type="radio" id="minor" value="minor" name="quality"></body>
-            </li>
-            <li>
-                <label for="major">Diminished</label>
-                <input type="radio" id="diminished" value="diminished" name="quality"></body>
-            </li>
-            <li>
-                <label for="major">Augmented</label>
-                <input type="radio" id="augmented" value="augmented" name="quality"></body>
-            </li>
-            <li>
-                <label for="major">Major 7</label>
-                <input type="radio" id="major 7" value="major 7" name="quality"></body>
-            </li>
-            <li>
-                <label for="major">Minor 7</label>
-                <input type="radio" id="minor 7" value="minor 7" name="quality"></body>
-            </li>
-            <li>
-                <label for="major">Dominant 7</label>
-                <input type="radio" id="dominant 7" value="dominant 7" name="quality"></body>
-            </li>
-            <li>
-                <label for="major">Half diminished</label>
-                <input type="radio" id="half diminished" value="half diminished" name="quality"></body>
-            </li>
-            <li>
-                <label for="major">Diminished 7</label>
-                <input type="radio" id="diminished 7" value="diminished 7" name="quality"></body>
-            </li>
-        </ul>
+        <h1>Arpeggio Quiz</h1>
+        <nav>
+            <p>Select chord quality:</p>
+            <ul>
+                <li>
+                    <a>Random</a>
+                </li>
+                <li>
+                    <a id="specific">Specific</a>
+                    <ul id="qualities">
+                        <li>
+                            <label for="major">Major</label>
+                            <input type="checkbox" id="major" value="major" name="quality"/>
+                        </li>
+                        <li>
+                            <label for="major">Minor</label>
+                            <input type="checkbox" id="minor" value="minor" name="quality"/>
+                        </li>
+                        <li>
+                            <label for="diminished">Diminished</label>
+                            <input type="checkbox" id="diminished" value="diminished" name="quality"/>
+                        </li>
+                        <li>
+                            <label for="augmented">Augmented</label>
+                            <input type="checkbox" id="augmented" value="augmented" name="quality"/>
+                        </li>
+                        <li>
+                            <label for="major-7">Major 7</label>
+                            <input type="checkbox" id="major-7" value="major 7" name="quality"/>
+                        </li>
+                        <li>
+                            <label for="minor-7">Minor 7</label>
+                            <input type="checkbox" id="minor-7" value="minor 7" name="quality"/>
+                        </li>
+                        <li>
+                            <label for="dominant-7">Dominant 7</label>
+                            <input type="checkbox" id="dominant-7" value="dominant 7" name="quality"/>
+                        </li>
+                        <li>
+                            <label for="half-diminished">Half diminished</label>
+                            <input type="checkbox" id="half-diminished" value="half diminished" name="quality"/>
+                        </li>
+                        <li>
+                            <label for="diminished-7">Diminished 7</label>
+                            <input type="checkbox" id="diminished-7" value="diminished 7" name="quality"/>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
         <button id="generateChord">Generate chord</button>
+        <div id="arpeggio"></div>
         <p>
             <label for="answer">Answer:</label>
             <input type="text" id="answer" value="E minor"></input>

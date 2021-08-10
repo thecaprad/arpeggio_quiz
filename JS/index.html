@@ -11,61 +11,77 @@
     </head>
     <body>
         <h1>Arpeggio Quiz</h1>
-        <nav>
-            <p>Select chord quality:</p>
-            <ul>
-                <li>
-                    <a>Random</a>
-                </li>
-                <li>
-                    <a id="specific">Specific</a>
-                    <ul id="qualities">
-                        <li>
-                            <label for="major">Major</label>
-                            <input type="checkbox" id="major" value="major" name="quality"/>
-                        </li>
-                        <li>
-                            <label for="major">Minor</label>
-                            <input type="checkbox" id="minor" value="minor" name="quality"/>
-                        </li>
-                        <li>
-                            <label for="diminished">Diminished</label>
-                            <input type="checkbox" id="diminished" value="diminished" name="quality"/>
-                        </li>
-                        <li>
-                            <label for="augmented">Augmented</label>
-                            <input type="checkbox" id="augmented" value="augmented" name="quality"/>
-                        </li>
-                        <li>
-                            <label for="major-7">Major 7</label>
-                            <input type="checkbox" id="major-7" value="major 7" name="quality"/>
-                        </li>
-                        <li>
-                            <label for="minor-7">Minor 7</label>
-                            <input type="checkbox" id="minor-7" value="minor 7" name="quality"/>
-                        </li>
-                        <li>
-                            <label for="dominant-7">Dominant 7</label>
-                            <input type="checkbox" id="dominant-7" value="dominant 7" name="quality"/>
-                        </li>
-                        <li>
-                            <label for="half-diminished">Half diminished</label>
-                            <input type="checkbox" id="half-diminished" value="half diminished" name="quality"/>
-                        </li>
-                        <li>
-                            <label for="diminished-7">Diminished 7</label>
-                            <input type="checkbox" id="diminished-7" value="diminished 7" name="quality"/>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
         <button id="generateChord">Generate chord</button>
-        <div id="arpeggio"></div>
-        <p>
-            <label for="answer">Answer:</label>
-            <input type="text" id="answer" value="E minor"></input>
-            <button id="answerButton">Submit</button>
-        </p>
+        <nav>
+        <ul id="qualitynav">
+            <li><a href="#">Random</a></li>
+            <li><a href="#">Specific</a>
+                <ul>
+                    <li>
+                        <a>
+                        <label for="major">Major</label>
+                        <input type="checkbox" id="major" value="major" name="quality"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <label for="major">Minor</label>
+                        <input type="checkbox" id="minor" value="minor" name="quality"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <label for="diminished">Diminished</label>
+                        <input type="checkbox" id="diminished" value="diminished" name="quality"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <label for="augmented">Augmented</label>
+                        <input type="checkbox" id="augmented" value="augmented" name="quality"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <label for="major-7">Major 7</label>
+                        <input type="checkbox" id="major-7" value="major 7" name="quality"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <label for="minor-7">Minor 7</label>
+                        <input type="checkbox" id="minor-7" value="minor 7" name="quality"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <label for="dominant-7">Dominant 7</label>
+                        <input type="checkbox" id="dominant-7" value="dominant 7" name="quality"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <label for="half-diminished">Half diminished</label>
+                        <input type="checkbox" id="half-diminished" value="half diminished" name="quality"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <label for="diminished-7">Diminished 7</label>
+                        <input type="checkbox" id="diminished-7" value="diminished 7" name="quality"/>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        </nav>
+        <div id="answer-box">
+            <div id="arpeggio"></div>
+            <p>
+                <label for="answer">Answer:</label>
+                <input type="text" id="answer" value="E minor"></input>
+                <button id="answerButton">Submit</button>
+            </p>
+        </div>
     </body>
 </html>

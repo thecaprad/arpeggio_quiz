@@ -166,10 +166,6 @@ function validateQuality(inputQuality) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('specific').addEventListener('click', function() {
-        document.getElementById('qualities').style.display = "block";
-    });
-
     document.getElementById('generateChord').addEventListener('click', function() {
         document.getElementById('arpeggio').innerHTML = "";
         let checkedQualities = [];

@@ -9,43 +9,58 @@ p {
     font-family: 'Old Standard TT', serif;
 }
 
+#generateChord {
+    margin: 0;
+    position: relative;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
 nav {
     width: 40%;
-    height: 50px;
     margin: 0 auto;
-    overflow: hidden;
 }
 
-nav p {
-    width: 40%;
-    display: inline-block;
-}
-
-nav ul {
-    width: 40%;
-    display: inline-block;
+ul#qualitynav, #qualitynav ul {
+    margin: 0;
     padding: 0;
+    list-style-type: none;
+    height: 32px;
 }
-
-nav ul li {
-    width: 40%;
-    display: inline-block;
-    padding-inline: 3%;
-}
-
-a {
-    padding: 14px 16px;
-}
-
-#qualities {
-    position: absolute;
-    display: none;
-    text-align: left;
-}
-
-#qualities li {
-    display: block;
+    
+#qualitynav li {
+    float: left;
+    width: 150px;
     position: relative;
-    padding: 14px 16px;
-    z-index: 1;
+    background-color: #ffffff;
+}
+
+#qualitynav li a {
+    display: block;
+    width: 150px;
+    line-height: 30px;
+    text-align: center;
+    color: #000000;
+    text-decoration: none;
+}
+
+#qualitynav li a:hover {
+/* color:#333333; */
+}
+
+#qualitynav li ul{
+    display: none;
+    position: absolute;
+    left: 0;
+}
+    
+#qualitynav li:hover ul {
+    display: block;
+}
+
+#answer-box {
+    width: 40%;
+    margin: 0 auto;
+    text-align: center;
 }

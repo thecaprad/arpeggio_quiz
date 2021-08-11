@@ -165,11 +165,15 @@ function validateQuality(inputQuality) {
     return false;
 }
 
+function getCheckedBoxes(){
+    return document.getElementsByName('quality');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('generateChord').addEventListener('click', function() {
         document.getElementById('arpeggio').innerHTML = "";
+        var qualityCheckboxes = getCheckedBoxes();
         let checkedQualities = [];
-        var qualityCheckboxes = document.getElementsByName('quality');
             qualityCheckboxes.forEach(function(quality) {
                 if (quality.checked) {
                     checkedQualities.push(quality);
@@ -187,6 +191,12 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('arpeggio').innerHTML += `
                 ${note.preferredEnharmonic}
             `;
+        })
+    })
+
+    document.getElementById('random').addEventListener('click', function() {
+        getCheckedBoxes().forEach(function(checkbox) {
+            checkbox.checked = false;
         })
     })
 

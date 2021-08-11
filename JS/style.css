@@ -27,10 +27,11 @@ ul#qualitynav, #qualitynav ul {
     padding: 0;
     list-style-type: none;
     height: 32px;
+    text-align: center;
 }
     
 #qualitynav li {
-    float: left;
+    display: inline-block;
     width: 150px;
     position: relative;
     background-color: #ffffff;

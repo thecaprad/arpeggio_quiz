@@ -169,6 +169,17 @@ function getCheckedBoxes(){
     return document.getElementsByName('quality');
 }
 
+function shuffleArpeggio(arpeggios) {
+    var currentIndex = arpeggios.length, randomIndex;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex --;
+        [arpeggios[currentIndex], arpeggios[randomIndex]] = [
+        arpeggios[randomIndex], arpeggios[currentIndex]];
+    }
+    return arpeggios;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('generateChord').addEventListener('click', function() {
         document.getElementById('arpeggio').innerHTML = "";
@@ -187,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var quality = qualityCheckboxes[Math.floor(Math.random() * qualityCheckboxes.length)].value;
         }
         ARPEGGIO = new Arpeggio(new Note(), quality);
-        ARPEGGIO.notes.forEach(function(note) {
+        shuffleArpeggio(ARPEGGIO.notes.slice()).forEach(function(note) {
             document.getElementById('arpeggio').innerHTML += `
                 ${note.preferredEnharmonic}
             `;
